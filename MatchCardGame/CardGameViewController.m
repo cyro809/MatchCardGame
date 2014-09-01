@@ -17,6 +17,7 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSwitch;
 @end
 
 @implementation CardGameViewController
@@ -41,6 +42,35 @@
     [self updateUI];
 }
 
+- (IBAction)touchModeSwitch:(id)sender {
+    if (self.modeSwitch.selectedSegmentIndex == 0)
+    {
+        self.game.numCards = 2;
+    }
+    else if (self.modeSwitch.selectedSegmentIndex == 1)
+    {
+        self.game.numCards = 3;
+    }
+    
+}
+
+
+
+- (IBAction)touchReDealButton:(UIButton *)sender {
+    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self updateUI];
+    self.scoreLabel.text = @"Score: 0";
+    if (self.modeSwitch.selectedSegmentIndex == 0)
+    {
+        self.game.numCards = 2;
+    }
+    else if (self.modeSwitch.selectedSegmentIndex == 1)
+    {
+        self.game.numCards = 3;
+    }
+    self.game.gameStart = NO;
+}
+
 
 - (void) updateUI
 {
@@ -51,6 +81,14 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+    }
+    if (self.game.gameStart){
+        self.modeSwitch.userInteractionEnabled = NO;
+        self.modeSwitch.enabled = NO;
+    }
+    else {
+        self.modeSwitch.userInteractionEnabled = YES;
+        self.modeSwitch.enabled = YES;
     }
 }
 

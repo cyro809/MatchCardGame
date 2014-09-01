@@ -16,7 +16,12 @@
 
 - (void) chooseCardAtIndex:(NSUInteger) index;
 - (Card *)cardAtIndex:(NSUInteger)index;
-
+- (void) twoCardMode:(Card *)card;
+- (void) threeCardMode:(Card *)card;
 @property (nonatomic, readonly) NSUInteger score;
+
+@property (nonatomic) int numCards;
+@property (nonatomic) int numCardsChosen;
+@property (nonatomic) BOOL gameStart;
 
 @end
