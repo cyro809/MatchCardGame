@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 @end
 
 @implementation CardGameViewController
@@ -81,6 +82,7 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.getLastPlays objectAtIndex:0]];
     }
     if (self.game.gameStart){
         self.modeSwitch.userInteractionEnabled = NO;
