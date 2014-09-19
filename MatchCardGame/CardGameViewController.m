@@ -82,7 +82,10 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-        self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.getLastPlays objectAtIndex:0]];
+        if([self.game.lastPlays count] > 0)
+        {
+            self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.lastPlays objectAtIndex:0]];
+        }
     }
     if (self.game.gameStart){
         self.modeSwitch.userInteractionEnabled = NO;

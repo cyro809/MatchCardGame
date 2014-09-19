@@ -23,6 +23,6 @@
 @property (nonatomic) int numCards;
 @property (nonatomic) int numCardsChosen;
 @property (nonatomic) BOOL gameStart;
-@property (nonatomic, strong, getter = getLastPlays) NSMutableArray *lastPlays;
+@property (nonatomic, strong) NSMutableArray *lastPlays;
 
 @end

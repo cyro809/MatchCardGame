@@ -17,7 +17,6 @@
 
 @implementation CardMatchingGame
 
-@synthesize lastPlays = _lastPlays;
 
 - (NSMutableArray*) lastPlays
 {
@@ -81,6 +80,7 @@ static const int COST_TO_CHOOSE = 1;
         if(card.isChosen) {
             card.chosen = NO;
             currentPlay = [NSString stringWithFormat:@"%@", card.contents];
+            [self.lastPlays insertObject:currentPlay atIndex:0];
             NSLog(@"%@",currentPlay);
         }
         else {
@@ -95,7 +95,8 @@ static const int COST_TO_CHOOSE = 1;
                         self.numCardsChosen = 0;
                         currentPlay = [NSString stringWithFormat:@"Matched %@ %@", card.contents, otherCard.contents];
                         NSLog(@"%@",currentPlay);
-                        [self.lastPlays addObject:currentPlay];
+                        [self.lastPlays insertObject:currentPlay atIndex:0];
+                        NSLog(@"%d",[self.lastPlays count]);
                         NSLog(@"%@", [self.lastPlays objectAtIndex:0]);
                     }
                     else {
@@ -103,6 +104,7 @@ static const int COST_TO_CHOOSE = 1;
                         otherCard.chosen = NO;
                         self.numCardsChosen = 0;
                         currentPlay = [NSString stringWithFormat:@"%@ %@ don't match", card.contents, otherCard.contents];
+                        [self.lastPlays insertObject:currentPlay atIndex:0];
                         NSLog(@"%@",currentPlay);
                     }
                     break; // can only choose 2 card for now
@@ -122,6 +124,7 @@ static const int COST_TO_CHOOSE = 1;
         if(card.isChosen) {
             card.chosen = NO;
             currentPlay = [NSString stringWithFormat:@"%@", card.contents];
+            [self.lastPlays insertObject:currentPlay atIndex:0];
             NSLog(@"%@",currentPlay);
         }
         else {
