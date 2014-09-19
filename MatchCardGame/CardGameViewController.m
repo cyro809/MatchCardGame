@@ -41,6 +41,8 @@
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
+    self.lastPlaySlider.value = 0;
+    self.lastPlayLabel.textColor = [UIColor blackColor];
     [self updateUI];
 }
 
@@ -62,6 +64,14 @@
     if ([self.game.lastPlays count])
     {
         self.lastPlayLabel.text = [self.game.lastPlays objectAtIndex:sliderValue];
+        if(sliderValue > 0)
+        {
+            self.lastPlayLabel.textColor = [UIColor grayColor];
+        }
+        else
+        {
+            self.lastPlayLabel.textColor = [UIColor blackColor];
+        }
     }
     
 }
