@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
+@property (weak, nonatomic) IBOutlet UISlider *lastPlaySlider;
 @end
 
 @implementation CardGameViewController
@@ -55,12 +56,18 @@
     
 }
 
+- (IBAction)slidePlays:(id)sender {
+    //NSInteger sliderValue = [sender value];
+    //self.lastPlayLabel.text = [self.game.lastPlays objectAtIndex:sliderValue];
+    
+}
 
 
 - (IBAction)touchReDealButton:(UIButton *)sender {
     self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
     self.scoreLabel.text = @"Score: 0";
+    self.lastPlayLabel.text = @"Last Play: ";
     if (self.modeSwitch.selectedSegmentIndex == 0)
     {
         self.game.numCards = 2;
@@ -70,6 +77,7 @@
         self.game.numCards = 3;
     }
     self.game.gameStart = NO;
+    self.game.lastPlays = [[NSMutableArray alloc] init];
 }
 
 
@@ -104,7 +112,7 @@
 
 - (UIImage *)backgroundImageForCard:(Card *)card
 {
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
+    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"card"];
 }
 
 
