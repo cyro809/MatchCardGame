@@ -56,9 +56,13 @@
     
 }
 
-- (IBAction)slidePlays:(id)sender {
-    //NSInteger sliderValue = [sender value];
-    //self.lastPlayLabel.text = [self.game.lastPlays objectAtIndex:sliderValue];
+
+- (IBAction)lastPlaysSlider:(UISlider *)sender {
+    NSUInteger sliderValue = [sender value];
+    if ([self.game.lastPlays count])
+    {
+        self.lastPlayLabel.text = [self.game.lastPlays objectAtIndex:sliderValue];
+    }
     
 }
 
@@ -93,6 +97,7 @@
         if([self.game.lastPlays count] > 0)
         {
             self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.lastPlays objectAtIndex:0]];
+            self.lastPlaySlider.maximumValue = [self.game.lastPlays count]-1;
         }
     }
     if (self.game.gameStart){

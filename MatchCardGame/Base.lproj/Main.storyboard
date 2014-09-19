@@ -415,7 +415,7 @@
                                 <rect key="frame" x="149" y="381" width="118" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="slidePlays:" destination="vXZ-lx-hvc" eventType="valueChanged" id="H7O-ny-QEc"/>
+                                    <action selector="lastPlaysSlider:" destination="vXZ-lx-hvc" eventType="valueChanged" id="hke-6W-USz"/>
                                 </connections>
                             </slider>
                         </subviews>
