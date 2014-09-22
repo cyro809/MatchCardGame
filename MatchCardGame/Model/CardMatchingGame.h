@@ -18,6 +18,7 @@
 - (Card *)cardAtIndex:(NSUInteger)index;
 - (void) twoCardMode:(Card *)card;
 - (void) threeCardMode:(Card *)card;
+- (void) printPlay:(Card *)card current:(NSString *)currentPlay;
 @property (nonatomic, readonly) NSUInteger score;
 
 @property (nonatomic) int numCards;

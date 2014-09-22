@@ -86,7 +86,6 @@ static const int COST_TO_CHOOSE = 1;
             card.chosen = NO;
             currentPlay = [NSString stringWithFormat:@"%@", card.contents];
             [self.lastPlays insertObject:currentPlay atIndex:0];
-            NSLog(@"%@",currentPlay);
         }
         else {
             // match against other chosen cards
@@ -101,10 +100,7 @@ static const int COST_TO_CHOOSE = 1;
                         self.numCardsChosen = 0;
                         currentPlay = [NSString stringWithFormat:@"Matched %@ %@ for %d points", card.contents, otherCard.contents, self.current_play_points];
                         self.current_play_points = 0;
-                        NSLog(@"%@",currentPlay);
                         [self.lastPlays insertObject:currentPlay atIndex:0];
-                        NSLog(@"%d",[self.lastPlays count]);
-                        NSLog(@"%@", [self.lastPlays objectAtIndex:0]);
                     }
                     else {
                         self.score -= MISMATCH_PENALTY;
@@ -112,7 +108,6 @@ static const int COST_TO_CHOOSE = 1;
                         self.numCardsChosen = 0;
                         currentPlay = [NSString stringWithFormat:@"%@ %@ don't match", card.contents, otherCard.contents];
                         [self.lastPlays insertObject:currentPlay atIndex:0];
-                        NSLog(@"%@",currentPlay);
                     }
                     break; // can only choose 2 card for now
                 }
@@ -126,13 +121,11 @@ static const int COST_TO_CHOOSE = 1;
 - (void) threeCardMode:(Card *) card
 {
     NSString *currentPlay = @"";
-    NSLog(@"Num Cards Chosen: %d and Num Cards: %d", self.numCardsChosen, self.numCards);
     if(!card.isMatched) {
         if(card.isChosen) {
             card.chosen = NO;
             currentPlay = [NSString stringWithFormat:@"%@", card.contents];
             [self.lastPlays insertObject:currentPlay atIndex:0];
-            NSLog(@"%@",currentPlay);
         }
         else {
             // match against other chosen cards
@@ -147,7 +140,6 @@ static const int COST_TO_CHOOSE = 1;
                 }
                 
                 else if(!self.matched && otherCard.isChosen){
-                    NSLog(@"No match and card is chosen");
                     card.chosen = NO;
                     otherCard.chosen = NO;
                 }
@@ -159,8 +151,8 @@ static const int COST_TO_CHOOSE = 1;
                 else {
                     self.matched = NO;
                 }
-                
             }
+            // Cofere quais cartas foram escolhidas e quais foram combinadas
             for (Card *otherCard in self.cards) {
                 if(self.matched && otherCard.isChosen && self.numCardsChosen == self.numCards){
                     card.matched = YES;
@@ -173,6 +165,9 @@ static const int COST_TO_CHOOSE = 1;
                     currentPlay = [NSString stringWithFormat:@"%@ %@",otherCard.contents, currentPlay];
                 }
             }
+            // Se foram selecionadas 3 ou mais cartas:
+            //     Se houve combinação o numero de cartas escolhidas vai pra zero.
+            //     Se não, a ultima carta continua escolhida permanece virada
             if (self.numCardsChosen >= self.numCards) {
                 if(self.matched) self.numCardsChosen = 0;
                 else self.numCardsChosen = 1;
@@ -183,30 +178,39 @@ static const int COST_TO_CHOOSE = 1;
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
         }
-        if(card.isMatched && self.end_of_play)
-        {
-            //Pegar e juntar as cartas na string currentPlay
-            currentPlay = [NSString stringWithFormat:@"%@ %@", currentPlay, card.contents];
-            
-            //Juntar matched com a string das cartas
-            currentPlay = [NSString stringWithFormat:@"Matched %@ for %d points", currentPlay, self.current_play_points];
-            [self.lastPlays insertObject:currentPlay atIndex:0];
-            
-            //atualizo o score somente no final da jogada
-            self.score = self.temp_score;
-            self.current_play_points = 0;
-        }
-        else if(!card.isMatched && self.end_of_play)
-        {
-            currentPlay = [NSString stringWithFormat:@"%@ %@", currentPlay, card.contents];
-            
-            //Juntar matched com a string das cartas
-            currentPlay = [NSString stringWithFormat:@"%@ don't match", currentPlay];
-            [self.lastPlays insertObject:currentPlay atIndex:0];
-        }
-        NSLog(@"%@", currentPlay);
+        [self printPlay:card current:currentPlay];
+        
     }
 }
+
+
+
+- (void) printPlay:(Card *)card current:(NSString *)currentPlay
+{
+    if(card.isMatched && self.end_of_play)
+    {
+        //Pegar e juntar as cartas na string currentPlay
+        currentPlay = [NSString stringWithFormat:@"%@ %@", currentPlay, card.contents];
+        
+        //Juntar matched com a string das cartas
+        currentPlay = [NSString stringWithFormat:@"Matched %@ for %d points", currentPlay, self.current_play_points];
+        [self.lastPlays insertObject:currentPlay atIndex:0];
+        
+        //atualizo o score somente no final da jogada
+        self.score = self.temp_score;
+        self.current_play_points = 0;
+    }
+    else if(!card.isMatched && self.end_of_play)
+    {
+        currentPlay = [NSString stringWithFormat:@"%@ %@", currentPlay, card.contents];
+        
+        //Juntar matched com a string das cartas
+        currentPlay = [NSString stringWithFormat:@"%@ don't match", currentPlay];
+        [self.lastPlays insertObject:currentPlay atIndex:0];
+    }
+}
+
+
 
 - (void) chooseCardAtIndex:(NSUInteger)index
 {
