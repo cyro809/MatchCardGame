@@ -467,7 +467,7 @@
         <scene sceneID="6li-wn-VIp">
             <objects>
                 <tabBarController definesPresentationContext="YES" id="duw-VW-LeJ" sceneMemberID="viewController">
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="0kU-db-7AN">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -482,10 +482,10 @@
             </objects>
             <point key="canvasLocation" x="-238" y="328"/>
         </scene>
-        <!--View Controller - Set CardGame-->
+        <!--Set Card Game View Controller - Set CardGame-->
         <scene sceneID="BNJ-Vi-FIh">
             <objects>
-                <viewController id="38i-BF-Olj" sceneMemberID="viewController">
+                <viewController id="38i-BF-Olj" customClass="SetCardGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fEj-5x-4Bh"/>
                         <viewControllerLayoutGuide type="bottom" id="jjX-S8-kPe"/>
@@ -493,9 +493,21 @@
                     <view key="view" contentMode="scaleToFill" id="6v5-Ro-sDE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaK-th-IsJ">
+                                <rect key="frame" x="46" y="54" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="⭕️" backgroundImage="cardfront">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12784698150771634" green="0.38307146972533351" blue="0.38386878188775508" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Set CardGame" id="tHW-GJ-ZWc"/>
+                    <connections>
+                        <outlet property="cardButton" destination="UaK-th-IsJ" id="rNS-YB-0zi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLa-2V-XxU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
