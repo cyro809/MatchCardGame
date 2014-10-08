@@ -32,4 +32,51 @@
 
 + (NSUInteger) maxNumber { return [[self validNumbersOfShapes] count]; }
 
+- (BOOL) shapeMatch:(SetCard *)otherCard
+{
+    if (self.shape == otherCard.shape) return YES;
+    else return NO;
+}
+
+- (BOOL) shadingMatch:(SetCard *)otherCard
+{
+    if (self.shading == otherCard.shading) return YES;
+    else return NO;
+}
+
+- (BOOL) numberMatch:(SetCard *)otherCard
+{
+    if ([self.shape length] == [otherCard.shape length]) return YES;
+    else return NO;
+}
+
+- (BOOL) colorMatch:(SetCard *)otherCard
+{
+    if (self.color == otherCard.color) return YES;
+    else return NO;
+}
+
+- (int) match:(NSArray *)otherCards
+{
+    int score = 0;
+    BOOL shapeMatched = NO;
+    BOOL numberMatched = NO;
+    BOOL shadingMatched = NO;
+    BOOL colorMatched = NO;
+    for (SetCard *card in otherCards) {
+        if ([self shapeMatch:card]) shapeMatched = YES;
+        else shapeMatched = NO;
+        
+        if ([self colorMatch:card]) colorMatched = YES;
+        else colorMatched = NO;
+        
+        if ([self shadingMatch:card]) shadingMatched = YES;
+        else shadingMatched = NO;
+        
+        if ([self numberMatch:card]) numberMatched = YES;
+        else numberMatched = NO;
+    }
+    return score;
+}
+
 @end

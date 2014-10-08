@@ -16,5 +16,7 @@
 @implementation SetCardGameViewController
 
 
+- (IBAction)touchCardButton:(id)sender {
+}
 
 @end

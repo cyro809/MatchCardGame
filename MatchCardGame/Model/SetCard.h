@@ -20,4 +20,10 @@
 + (NSArray *) validNumbersOfShapes;
 + (NSUInteger) maxNumber;
 
+- (int) match:(NSArray *)otherCards;
+- (BOOL) shapeMatch:(SetCard *)otherCard;
+- (BOOL) colorMatch:(SetCard *) otherCard;
+- (BOOL) shadingMatch:(SetCard *) otherCard;
+- (BOOL) numberMatch:(SetCard *) otherCard;
+
 @end

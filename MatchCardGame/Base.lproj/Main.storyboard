@@ -500,6 +500,9 @@
                                 <state key="normal" title="⭕️" backgroundImage="cardfront">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="touchCardButton:" destination="38i-BF-Olj" eventType="touchUpInside" id="W42-We-gZo"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.12784698150771634" green="0.38307146972533351" blue="0.38386878188775508" alpha="1" colorSpace="calibratedRGB"/>
