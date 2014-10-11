@@ -64,16 +64,28 @@
     BOOL shadingMatched = NO;
     BOOL colorMatched = NO;
     for (SetCard *card in otherCards) {
-        if ([self shapeMatch:card]) shapeMatched = YES;
+        if ([self shapeMatch:card]) {
+            shapeMatched = YES;
+            score = 1;
+        }
         else shapeMatched = NO;
         
-        if ([self colorMatch:card]) colorMatched = YES;
+        if ([self colorMatch:card]) {
+            colorMatched = YES;
+            score = 1;
+        }
         else colorMatched = NO;
         
-        if ([self shadingMatch:card]) shadingMatched = YES;
+        if ([self shadingMatch:card]) {
+            shadingMatched = YES;
+            score = 1;
+        }
         else shadingMatched = NO;
         
-        if ([self numberMatch:card]) numberMatched = YES;
+        if ([self numberMatch:card]) {
+            score = 1;
+            numberMatched = YES;
+        }
         else numberMatched = NO;
     }
     return score;
