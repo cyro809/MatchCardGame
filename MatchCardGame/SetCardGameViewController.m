@@ -67,13 +67,31 @@
 {
     for(UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        SetCard *card = [self.game cardAtIndex:cardButtonIndex];
-        [cardButton setTitleColor:card.color forState:UIControlStateNormal];
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        
+        SetCard *card =  (SetCard*)[self.game cardAtIndex:cardButtonIndex];
+        
+        //[cardButton setTitleColor:card.color forState:UIControlStateNormal];
+        [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
+        
         cardButton.enabled = !card.isChosen;
     }
 }
 
+- (NSAttributedString *)attributedTitleForCard:(SetCard *)card
+{
+    NSDictionary *titleAttributes = @{
+                                      NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],NSStrokeColorAttributeName:card.color,
+                                      NSForegroundColorAttributeName:[card.shading isEqual:@"outlined"] ? [UIColor whiteColor] : card.color };
+    
+    
+    
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:card.shape
+                                                                attributes:titleAttributes];
+    
+    return title;
+    
+                                                                
+}
 
 
 - (NSString *)titleForCard:(Card *)card
