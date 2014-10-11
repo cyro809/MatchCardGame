@@ -25,5 +25,9 @@
 @property (nonatomic) int numCardsChosen;
 @property (nonatomic) BOOL gameStart;
 @property (nonatomic, strong) NSMutableArray *lastPlays;
+@property (nonatomic) BOOL matched;
+@property (nonatomic) BOOL end_of_play;
+@property (nonatomic) NSUInteger temp_score;
+@property (nonatomic) NSUInteger current_play_points;
 
 @end
