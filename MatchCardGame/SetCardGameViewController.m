@@ -23,7 +23,7 @@
 - (SetCardGame *)game
 {
     if (!_game) _game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    
+    _game.numCards = 3;
     return _game;
 }
 
