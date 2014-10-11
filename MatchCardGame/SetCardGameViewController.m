@@ -67,7 +67,8 @@
 {
     for(UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
+        SetCard *card = [self.game cardAtIndex:cardButtonIndex];
+        [cardButton setTitleColor:card.color forState:UIControlStateNormal];
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isChosen;
     }
