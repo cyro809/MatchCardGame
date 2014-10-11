@@ -7,16 +7,61 @@
 //
 
 #import "SetCardGameViewController.h"
+#import "SetCard.h"
 
 @interface SetCardGameViewController ()
-@property (strong, nonatomic) IBOutlet UIButton *cardButton;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 @end
 
 @implementation SetCardGameViewController
 
 
-- (IBAction)touchCardButton:(id)sender {
+- (IBAction)touchCardButton:(UIButton *)sender
+{
+
 }
+
+
+
+
+
+- (IBAction)touchModeSwitch:(id)sender {
+   
+    
+}
+
+
+- (IBAction)lastPlaysSlider:(UISlider *)sender {
+    
+    
+}
+
+
+- (IBAction)touchReDealButton:(UIButton *)sender {
+
+}
+
+
+- (void) updateUI
+{
+    
+}
+
+
+
+- (NSString *)titleForCard:(Card *)card
+{
+    return @"";
+}
+
+- (UIImage *)backgroundImageForCard:(Card *)card
+{
+    return [UIImage imageNamed:@"card"];
+}
+
+
+
+
 
 @end
