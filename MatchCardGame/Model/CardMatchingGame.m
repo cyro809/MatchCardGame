@@ -60,14 +60,6 @@
     return self;
 }
 
-
-@synthesize numCardsChosen = _numCardsChosen;
-
-- (void) setNumCardsChosen:(int)numCardsChosen
-{
-    _numCardsChosen = numCardsChosen;
-}
-
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int TRIPLE_BONUS = 2.5;
