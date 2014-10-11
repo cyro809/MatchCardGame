@@ -9,5 +9,7 @@
 #import "CardMatchingGame.h"
 
 @interface SetCardGame : CardMatchingGame
+@property (nonatomic, strong) NSMutableArray *cards; //of cards
+
 
 @end
