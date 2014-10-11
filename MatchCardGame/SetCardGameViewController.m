@@ -8,8 +8,11 @@
 
 #import "SetCardGameViewController.h"
 #import "SetCard.h"
+#import "SetCardGame.h"
+#import "SetCardDeck.h"
 
 @interface SetCardGameViewController ()
+@property (strong, nonatomic) SetCardGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
 @end
@@ -17,13 +20,30 @@
 @implementation SetCardGameViewController
 
 
+- (SetCardGame *)game
+{
+    if (!_game) _game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    
+    return _game;
+}
+
+- (Deck *) createDeck
+{
+    return [[SetCardDeck alloc] init];
+}
+
 - (IBAction)touchCardButton:(UIButton *)sender
 {
-
+    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
+    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self updateUI];
 }
 
 
-
+- (void) viewDidLoad
+{
+    [self updateUI];
+}
 
 
 - (IBAction)touchModeSwitch:(id)sender {
@@ -45,14 +65,19 @@
 
 - (void) updateUI
 {
-    
+    for(UIButton *cardButton in self.cardButtons) {
+        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        Card *card = [self.game cardAtIndex:cardButtonIndex];
+        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
+        cardButton.enabled = !card.isChosen;
+    }
 }
 
 
 
 - (NSString *)titleForCard:(Card *)card
 {
-    return @"";
+    return card.contents;
 }
 
 - (UIImage *)backgroundImageForCard:(Card *)card

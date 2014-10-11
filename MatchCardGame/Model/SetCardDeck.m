@@ -23,6 +23,7 @@
                     card.color = color;
                     card.shape = shape;
                     card.shading = shading;
+                    card.contents = shape;
                     [self addCard:card];
                 }
                 
