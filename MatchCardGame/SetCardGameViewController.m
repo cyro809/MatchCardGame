@@ -36,6 +36,12 @@
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
+    if([[self.game cardAtIndex:chosenButtonIndex] isChosen]) {
+        sender.alpha = 0.5;
+    }
+    else {
+        sender.alpha = 1;
+    }
     [self updateUI];
 }
 
@@ -73,7 +79,7 @@
         //[cardButton setTitleColor:card.color forState:UIControlStateNormal];
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
         
-        cardButton.enabled = !card.isChosen;
+        cardButton.enabled = !card.isMatched;
     }
 }
 
