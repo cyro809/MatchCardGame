@@ -79,9 +79,19 @@
 
 - (NSAttributedString *)attributedTitleForCard:(SetCard *)card
 {
-    NSDictionary *titleAttributes = @{
-                                      NSStrokeWidthAttributeName:[NSNumber numberWithFloat:-2.0],NSStrokeColorAttributeName:card.color,
-                                      NSForegroundColorAttributeName:[card.shading isEqual:@"outlined"] ? [UIColor whiteColor] : card.color };
+    NSDictionary *titleAttributes;
+    if([card.shading isEqual:@"striped"]) {
+        titleAttributes = @{
+                            NSStrokeWidthAttributeName : @-5,
+                            NSStrokeColorAttributeName : card.color,
+                        NSForegroundColorAttributeName : [card.color colorWithAlphaComponent:0.3]};
+    } else {
+        titleAttributes = @{
+                            NSStrokeWidthAttributeName:@-5,
+                            NSStrokeColorAttributeName:card.color,
+                        NSForegroundColorAttributeName:[card.shading isEqual:@"outlined"] ? [UIColor whiteColor] : card.color };
+    }
+    
     
     
     
