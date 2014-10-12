@@ -74,7 +74,7 @@
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
         
         if(card.isChosen) {
-            cardButton.alpha = 0.5;
+            cardButton.alpha = 0.3;
         }
         else {
             cardButton.alpha = 1;
