@@ -13,6 +13,14 @@
 
 @implementation SetCardGame
 
+- (NSMutableArray *)cardsChosen
+{
+    if (!_cardsChosen) {
+        _cardsChosen = [[NSMutableArray alloc] init];
+    }
+    return _cardsChosen;
+}
+
 - (NSMutableArray *)cards
 {
     if (!_cards) _cards = [[NSMutableArray alloc] init];
@@ -49,24 +57,31 @@
     if(!card.isMatched) {
         if(card.isChosen) {
             card.chosen = NO;
-            
+            [self.cardsChosen removeObject:card];
             currentPlay = [NSString stringWithFormat:@"%@", card.contents];
             
             [self.lastPlays insertObject:currentPlay atIndex:0];
         }
         else {
             card.chosen = YES;
+            [self.cardsChosen addObject:card];
             // match against other chosen cards
-            NSLog(@"Three Cards Chosen");
-            int matchScore = [(SetCard*) card match:self.cards];
-            NSLog(@"matchScore = %d", matchScore);
-            if (matchScore) {
-                self.matched = YES;
-            }
-            else self.matched = NO;
+            
             
             
             if (self.numCardsChosen >= self.numCards) {
+                NSLog(@"Three Cards Chosen");
+                NSLog(@"Chosen cards count %d",[self.cardsChosen count]);
+                Card *card01 = self.cardsChosen[0];
+                Card *card02 = self.cardsChosen[1];
+                Card *card03 = self.cardsChosen[2];
+                
+                if([(SetCard *)card01 match:@[card02,card03]] != 0 && [(SetCard *)card02 match:@[card01,card03]] != 0 && [(SetCard *)card03 match:@[card01,card02]] != 0) {
+                    NSLog(@"MATCHED!!");
+                    self.matched = YES;
+                }
+                else self.matched = NO;
+            
                 for (Card *otherCard in self.cards) {
                     if(self.matched && otherCard.isChosen) {
                         otherCard.matched = YES;
@@ -78,7 +93,7 @@
                 
                 
                 
-                
+                [self.cardsChosen removeAllObjects];
                 self.numCardsChosen = 0;
             }
             

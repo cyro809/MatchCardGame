@@ -23,7 +23,7 @@
                     card.color = color;
                     card.shape = shape;
                     card.shading = shading;
-                    card.contents = shape;
+                    card.numOfShapes = [card.shape length];
                     card.partialMatch = NO;
                     [self addCard:card];
                 }

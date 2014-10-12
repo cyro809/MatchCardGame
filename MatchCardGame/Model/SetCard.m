@@ -12,7 +12,7 @@
 
 + (NSArray *)validShapes
 {
-    return @[@"●",@"●●", @"●●●", @"◼︎", @"◼︎◼︎", @"◼︎◼︎◼︎", @"▲", @"▲▲", @"▲▲▲"];
+    return @[@"●",@"●●", @"●●●", @"■", @"■■", @"■■■", @"▲", @"▲▲", @"▲▲▲"];
 }
 
 + (NSArray *)validColors
@@ -48,7 +48,8 @@
 
 - (BOOL) numberMatch:(SetCard *)otherCard
 {
-    if ([self.shape length] == [otherCard.shape length]) return YES;
+    NSLog(@"my number= %d (%@)  other number= %d (%@)",self.numOfShapes, self.shape, otherCard.numOfShapes, otherCard.shape);
+    if (self.numOfShapes == otherCard.numOfShapes) return YES;
     else return NO;
 }
 
@@ -64,24 +65,28 @@
        self.numberOfColorMatches != 1 &&
        self.numberOfShadingMatches != 1 &&
        self.numberOfShapeMatches != 1) {
+        self.partialMatch = NO;
         return YES;
     }
     else if(self.numberOfNumberMatches != 1 &&
             self.numberOfColorMatches > 1 &&
             self.numberOfShadingMatches != 1 &&
             self.numberOfShapeMatches != 1) {
+        self.partialMatch = NO;
         return YES;
     }
     else if(self.numberOfNumberMatches != 1 &&
             self.numberOfColorMatches != 1 &&
             self.numberOfShadingMatches > 1 &&
             self.numberOfShapeMatches != 1) {
+        self.partialMatch = NO;
         return YES;
     }
     else if(self.numberOfNumberMatches != 1 &&
             self.numberOfColorMatches != 1 &&
             self.numberOfShadingMatches != 1 &&
             self.numberOfShapeMatches > 1) {
+        self.partialMatch = NO;
         return YES;
     }
     else return NO;
@@ -190,9 +195,20 @@
         NSLog(@"Shading: %s", shadingMatched ? "YES":"NO");
         NSLog(@"===============================");
     }
-    if( self.isASet) score = 1;
-    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards && !self.hasPartialMatch) score = 1;
-    else if (self.hasPartialMatch) score = 0;
+    if( self.isASet){
+        NSLog(@"isASet!!!");
+        score = 1;
+        return score;
+    }
+    else if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards) {
+        NSLog(@"ALL DIFERENT!!!");
+        score = 1;
+        return score;
+    }
+    else if (self.hasPartialMatch) {
+        NSLog(@"PARTIAL MATCH!!!!");
+        score = 0;
+    }
     
     return score;
 }
