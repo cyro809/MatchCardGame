@@ -36,12 +36,7 @@
 {
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
     [self.game chooseCardAtIndex:chosenButtonIndex];
-    if([[self.game cardAtIndex:chosenButtonIndex] isChosen]) {
-        sender.alpha = 0.5;
-    }
-    else {
-        sender.alpha = 1;
-    }
+    
     [self updateUI];
 }
 
@@ -76,8 +71,14 @@
         
         SetCard *card =  (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         
-        //[cardButton setTitleColor:card.color forState:UIControlStateNormal];
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
+        
+        if(card.isChosen) {
+            cardButton.alpha = 0.5;
+        }
+        else {
+            cardButton.alpha = 1;
+        }
         
         cardButton.enabled = !card.isMatched;
     }
