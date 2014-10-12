@@ -9,6 +9,7 @@
 #import "CardMatchingGame.h"
 
 @interface SetCardGame : CardMatchingGame
+- (instancetype) initWithCardCount: (NSUInteger)count usingDeck:(Deck *)deck;
 @property (nonatomic, strong) NSMutableArray *cards; //of cards
 
 
