@@ -24,6 +24,7 @@
                     card.shape = shape;
                     card.shading = shading;
                     card.contents = shape;
+                    card.partialMatch = NO;
                     [self addCard:card];
                 }
                 

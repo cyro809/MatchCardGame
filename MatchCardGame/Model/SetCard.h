@@ -19,6 +19,8 @@
 @property (nonatomic) int numberOfColorMatches;
 @property (nonatomic) int numberOfNumberMatches;
 
+@property (nonatomic) BOOL partialMatch;
+
 + (NSArray *) validShapes;
 + (NSArray *) validColors;
 + (NSArray *) validShadings;

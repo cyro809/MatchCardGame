@@ -57,22 +57,23 @@
         else {
             card.chosen = YES;
             // match against other chosen cards
+            NSLog(@"Three Cards Chosen");
+            int matchScore = [(SetCard*) card match:self.cards];
+            NSLog(@"matchScore = %d", matchScore);
+            if (matchScore) {
+                self.matched = YES;
+            }
+            else self.matched = NO;
+            
+            
             if (self.numCardsChosen >= self.numCards) {
-                NSLog(@"Three Cards Chosen");
-                int matchScore = [(SetCard*) card match:self.cards];
-                NSLog(@"matchScore = %d", matchScore);
-                if (matchScore) {
-                    self.matched = YES;
-                }
-                else {
-                    for (Card *otherCard in self.cards) {
-                        if (otherCard.isChosen) otherCard.chosen = NO;
-                    }
-                }
                 for (Card *otherCard in self.cards) {
                     if(self.matched && otherCard.isChosen) {
                         otherCard.matched = YES;
                     }
+                }
+                for (Card *otherCard in self.cards) {
+                    if (otherCard.isChosen) otherCard.chosen = NO;
                 }
                 
                 

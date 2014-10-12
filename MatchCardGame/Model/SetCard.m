@@ -84,20 +84,20 @@
     BOOL numberMatched = NO;
     BOOL shadingMatched = NO;
     BOOL colorMatched = NO;
-    
     for (SetCard *card in otherCards) {
-        NSLog(@"================= Inicio For ===================");
+        NSLog(@"======= Inicio For =======");
         NSLog(@"Shape: %d", self.numberOfShapeMatches);
         NSLog(@"NUmber: %d", self.numberOfNumberMatches);
         NSLog(@"Color: %d", self.numberOfColorMatches);
         NSLog(@"Shading: %d", self.numberOfShadingMatches);
-        NSLog(@"================================================");
+        NSLog(@"==========================");
         if (card.isChosen && !card.isMatched && self != card) {
             
             if ([self shapeMatch:card]) {
                 NSLog(@"Shape Match");
                 shapeMatched = YES;
                 self.numberOfShapeMatches++;
+                self.partialMatch = YES;
             }
             else {
                 shapeMatched = NO;
@@ -109,6 +109,7 @@
                 NSLog(@"Color Match");
                 colorMatched = YES;
                 self.numberOfColorMatches++;
+                self.partialMatch = YES;
             }
             else {
                 colorMatched = NO;
@@ -120,6 +121,7 @@
                 NSLog(@"Shading Match");
                 shadingMatched = YES;
                 self.numberOfShadingMatches++;
+                self.partialMatch = YES;
             }
             else {
                 shadingMatched = NO;
@@ -131,6 +133,7 @@
                 NSLog(@"Number Match");
                 numberMatched = YES;
                 self.numberOfNumberMatches++;
+                self.partialMatch = YES;
             }
             else {
                 numberMatched = NO;
@@ -138,15 +141,22 @@
                 self.numberOfNumberMatches = 0;
             }
         }
-        NSLog(@"================= Final do For =================");
+        NSLog(@"======= Final do For ==========");
+        NSLog(@"***** Numbers *****");
         NSLog(@"Shape: %d", self.numberOfShapeMatches);
         NSLog(@"NUmber: %d", self.numberOfNumberMatches);
         NSLog(@"Color: %d", self.numberOfColorMatches);
         NSLog(@"Shading: %d", self.numberOfShadingMatches);
-        NSLog(@"================================================");
+        NSLog(@"*******************");
+        NSLog(@"****** BOOLEANS ******");
+        NSLog(@"Shape: %s", shapeMatched ? "YES":"NO");
+        NSLog(@"Number: %s", numberMatched ? "YES":"NO");
+        NSLog(@"Color: %s", colorMatched ? "YES":"NO");
+        NSLog(@"Shading: %s", shadingMatched ? "YES":"NO");
+        NSLog(@"===============================");
     }
     if( self.isASet) score = 1;
-    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards) score = 1;
+    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards && !self.partialMatch) score = 1;
     
     return score;
 }
