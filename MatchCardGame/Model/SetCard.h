@@ -14,6 +14,11 @@
 @property (strong, nonatomic) UIColor* color;
 @property (nonatomic) NSUInteger numOfShapes;
 
+@property (nonatomic) int numberOfShapeMatches;
+@property (nonatomic) int numberOfShadingMatches;
+@property (nonatomic) int numberOfColorMatches;
+@property (nonatomic) int numberOfNumberMatches;
+
 + (NSArray *) validShapes;
 + (NSArray *) validColors;
 + (NSArray *) validShadings;
