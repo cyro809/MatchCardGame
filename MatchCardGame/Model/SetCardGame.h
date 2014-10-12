@@ -11,6 +11,7 @@
 @interface SetCardGame : CardMatchingGame
 - (instancetype) initWithCardCount: (NSUInteger)count usingDeck:(Deck *)deck;
 @property (nonatomic, strong) NSMutableArray *cards; //of cards
+@property (nonatomic,readonly) NSUInteger score;
 @property (nonatomic, strong) NSMutableArray *cardsChosen;
 
 @end

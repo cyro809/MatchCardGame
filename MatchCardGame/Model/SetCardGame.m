@@ -9,6 +9,9 @@
 #import "SetCardGame.h"
 #import "SetCard.h"
 #import "SetCardDeck.h"
+@interface SetCardGame()
+@property (nonatomic, readwrite) NSUInteger score;
+@end
 
 @implementation SetCardGame
 
@@ -65,7 +68,7 @@
             card.chosen = YES;
             [self.cardsChosen addObject:card];
             // match against other chosen cards
-            
+            self.score--;
             
             
             if (self.numCardsChosen >= self.numCards) {
@@ -78,7 +81,7 @@
                 if([(SetCard *)card01 match:@[card02,card03]] != 0 && [(SetCard *)card02 match:@[card01,card03]] != 0 && [(SetCard *)card03 match:@[card01,card02]] != 0) {
                     NSLog(@"MATCHED!!");
                     self.matched = YES;
-                    //self.score++;
+                    self.score += 10;
                 }
                 else self.matched = NO;
             

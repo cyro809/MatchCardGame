@@ -66,7 +66,7 @@
         SetCard *card =  (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
-        //self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
         if(card.isChosen) {
             cardButton.alpha = 0.3;
         }
