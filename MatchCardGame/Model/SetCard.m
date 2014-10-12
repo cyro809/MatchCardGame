@@ -60,8 +60,30 @@
 
 - (BOOL) isASet
 {
-    if(self.numberOfNumberMatches > 1 || self.numberOfColorMatches > 1 ||
-       self.numberOfShadingMatches > 1 || self.numberOfShapeMatches > 1) return YES;
+    if(self.numberOfNumberMatches > 1 &&
+       self.numberOfColorMatches != 1 &&
+       self.numberOfShadingMatches != 1 &&
+       self.numberOfShapeMatches != 1) {
+        return YES;
+    }
+    else if(self.numberOfNumberMatches != 1 &&
+            self.numberOfColorMatches > 1 &&
+            self.numberOfShadingMatches != 1 &&
+            self.numberOfShapeMatches != 1) {
+        return YES;
+    }
+    else if(self.numberOfNumberMatches != 1 &&
+            self.numberOfColorMatches != 1 &&
+            self.numberOfShadingMatches > 1 &&
+            self.numberOfShapeMatches != 1) {
+        return YES;
+    }
+    else if(self.numberOfNumberMatches != 1 &&
+            self.numberOfColorMatches != 1 &&
+            self.numberOfShadingMatches != 1 &&
+            self.numberOfShapeMatches > 1) {
+        return YES;
+    }
     else return NO;
 }
 
@@ -102,7 +124,7 @@
             else {
                 shapeMatched = NO;
                 score = 0;
-                self.numberOfShapeMatches = 0;
+                //self.numberOfShapeMatches = 0;
             }
             
             if ([self colorMatch:card]) {
@@ -114,7 +136,7 @@
             else {
                 colorMatched = NO;
                 score = 0;
-                self.numberOfColorMatches = 0;
+                //self.numberOfColorMatches = 0;
             }
             
             if ([self shadingMatch:card]) {
@@ -126,7 +148,7 @@
             else {
                 shadingMatched = NO;
                 score = 0;
-                self.numberOfShadingMatches = 0;
+                //self.numberOfShadingMatches = 0;
             }
             
             if ([self numberMatch:card]) {
@@ -138,7 +160,7 @@
             else {
                 numberMatched = NO;
                 score = 0;
-                self.numberOfNumberMatches = 0;
+                //self.numberOfNumberMatches = 0;
             }
         }
         NSLog(@"======= Final do For ==========");
