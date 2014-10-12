@@ -389,7 +389,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchReDealButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="JTq-DQ-5QD"/>
+                                    <action selector="touchReDealButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="CMN-Jk-xRi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Play:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bk-Zy-5jU">
@@ -413,7 +413,7 @@
                     <connections>
                         <outlet property="lastPlayLabel" destination="8bk-Zy-5jU" id="dzQ-KA-guG"/>
                         <outlet property="lastPlaySlider" destination="KfZ-Cy-ANc" id="0P9-hy-x8P"/>
-                        <outlet property="scoreLabel" destination="rya-1A-I6y" id="g8z-wQ-bmx"/>
+                        <outlet property="scoreLabel" destination="rya-1A-I6y" id="iOi-wr-1Si"/>
                         <outletCollection property="cardButtons" destination="1xz-ou-JbO" id="x9w-UC-bWJ"/>
                         <outletCollection property="cardButtons" destination="aa6-HK-5Rl" id="Wqx-da-Xou"/>
                         <outletCollection property="cardButtons" destination="Hdh-Fc-3Bf" id="UBh-9a-cYI"/>

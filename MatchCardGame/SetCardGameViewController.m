@@ -14,6 +14,7 @@
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) SetCardGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
 
@@ -47,22 +48,15 @@
 }
 
 
-- (IBAction)touchModeSwitch:(id)sender {
-   
-    
+- (IBAction)touchReDealButton:(id)sender {
+    self.game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    [self updateUI];
+    //self.scoreLabel.text = @"Score: 0";
+    //self.lastPlayLabel.text = @"Last Play: ";
+    self.game.numCards = 3;
+    self.game.gameStart = NO;
+    self.game.lastPlays = [[NSMutableArray alloc] init];
 }
-
-
-- (IBAction)lastPlaysSlider:(UISlider *)sender {
-    
-    
-}
-
-
-- (IBAction)touchReDealButton:(UIButton *)sender {
-
-}
-
 
 - (void) updateUI
 {
@@ -72,7 +66,7 @@
         SetCard *card =  (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
-        
+        //self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
         if(card.isChosen) {
             cardButton.alpha = 0.3;
         }

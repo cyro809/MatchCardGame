@@ -10,7 +10,6 @@
 #import "SetCard.h"
 #import "SetCardDeck.h"
 
-
 @implementation SetCardGame
 
 - (NSMutableArray *)cardsChosen
@@ -79,6 +78,7 @@
                 if([(SetCard *)card01 match:@[card02,card03]] != 0 && [(SetCard *)card02 match:@[card01,card03]] != 0 && [(SetCard *)card03 match:@[card01,card02]] != 0) {
                     NSLog(@"MATCHED!!");
                     self.matched = YES;
+                    //self.score++;
                 }
                 else self.matched = NO;
             
