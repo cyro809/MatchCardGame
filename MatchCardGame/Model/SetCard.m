@@ -34,13 +34,15 @@
 
 - (BOOL) shapeMatch:(SetCard *)otherCard
 {
-    if (self.shape == otherCard.shape) return YES;
+    NSString *thisShape = [self.shape substringToIndex:1];
+    NSString *otherShape = [otherCard.shape substringToIndex:1];
+    if ([thisShape isEqual:otherShape]) return YES;
     else return NO;
 }
 
 - (BOOL) shadingMatch:(SetCard *)otherCard
 {
-    if (self.shading == otherCard.shading) return YES;
+    if ([self.shading isEqual:otherCard.shading]) return YES;
     else return NO;
 }
 
@@ -59,34 +61,43 @@
 - (int) match:(NSArray *)otherCards
 {
     int score = 0;
-    BOOL shapeMatched = NO;
-    BOOL numberMatched = NO;
-    BOOL shadingMatched = NO;
-    BOOL colorMatched = NO;
+    
     for (SetCard *card in otherCards) {
-        if ([self shapeMatch:card]) {
-            shapeMatched = YES;
-            score = 1;
+        if (card.isChosen && !card.isMatched && self != card) {
+            BOOL shapeMatched = NO;
+            BOOL numberMatched = NO;
+            BOOL shadingMatched = NO;
+            BOOL colorMatched = NO;
+            if ([self shapeMatch:card]) {
+                NSLog(@"Shape Match");
+                shapeMatched = YES;
+                score = 1;
+            }
+            else shapeMatched = NO;
+            
+            if ([self colorMatch:card]) {
+                NSLog(@"Color Match");
+                colorMatched = YES;
+                score = 1;
+            }
+            else colorMatched = NO;
+            
+            if ([self shadingMatch:card]) {
+                NSLog(@"Shading Match");
+                shadingMatched = YES;
+                score = 1;
+            }
+            else shadingMatched = NO;
+            
+            if ([self numberMatch:card]) {
+                NSLog(@"Number Match");
+                score = 1;
+                numberMatched = YES;
+            }
+            else numberMatched = NO;
         }
-        else shapeMatched = NO;
         
-        if ([self colorMatch:card]) {
-            colorMatched = YES;
-            score = 1;
-        }
-        else colorMatched = NO;
         
-        if ([self shadingMatch:card]) {
-            shadingMatched = YES;
-            score = 1;
-        }
-        else shadingMatched = NO;
-        
-        if ([self numberMatch:card]) {
-            score = 1;
-            numberMatched = YES;
-        }
-        else numberMatched = NO;
     }
     return score;
 }
