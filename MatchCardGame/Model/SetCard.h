@@ -32,5 +32,6 @@
 - (BOOL) colorMatch:(SetCard *) otherCard;
 - (BOOL) shadingMatch:(SetCard *) otherCard;
 - (BOOL) numberMatch:(SetCard *) otherCard;
+- (BOOL) hasPartialMatch;
 
 @end

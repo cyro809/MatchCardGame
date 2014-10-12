@@ -87,6 +87,15 @@
     else return NO;
 }
 
+- (BOOL) hasPartialMatch
+{
+    if (self.numberOfColorMatches == 1) return YES;
+    else if( self.numberOfNumberMatches == 1) return YES;
+    else if (self.numberOfShadingMatches == 1) return YES;
+    else if (self.numberOfShapeMatches == 1) return YES;
+    return NO;
+}
+
 - (BOOL) allDiferentCards
 {
     if (self.numberOfNumberMatches == 0 && self.numberOfColorMatches == 0 && self.numberOfShadingMatches == 0 && self.numberOfShapeMatches == 0) return YES;
@@ -119,6 +128,7 @@
                 NSLog(@"Shape Match");
                 shapeMatched = YES;
                 self.numberOfShapeMatches++;
+                //card.numberOfShapeMatches++;
                 self.partialMatch = YES;
             }
             else {
@@ -131,6 +141,7 @@
                 NSLog(@"Color Match");
                 colorMatched = YES;
                 self.numberOfColorMatches++;
+                //card.numberOfColorMatches++;
                 self.partialMatch = YES;
             }
             else {
@@ -143,6 +154,7 @@
                 NSLog(@"Shading Match");
                 shadingMatched = YES;
                 self.numberOfShadingMatches++;
+                //card.numberOfShadingMatches++;
                 self.partialMatch = YES;
             }
             else {
@@ -155,6 +167,7 @@
                 NSLog(@"Number Match");
                 numberMatched = YES;
                 self.numberOfNumberMatches++;
+                //card.numberOfNumberMatches++;
                 self.partialMatch = YES;
             }
             else {
@@ -178,7 +191,8 @@
         NSLog(@"===============================");
     }
     if( self.isASet) score = 1;
-    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards && !self.partialMatch) score = 1;
+    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched && self.allDiferentCards && !self.hasPartialMatch) score = 1;
+    else if (self.hasPartialMatch) score = 0;
     
     return score;
 }
