@@ -61,44 +61,55 @@
 - (int) match:(NSArray *)otherCards
 {
     int score = 0;
-    
+    BOOL shapeMatched = NO;
+    BOOL numberMatched = NO;
+    BOOL shadingMatched = NO;
+    BOOL colorMatched = NO;
     for (SetCard *card in otherCards) {
         if (card.isChosen && !card.isMatched && self != card) {
-            BOOL shapeMatched = NO;
-            BOOL numberMatched = NO;
-            BOOL shadingMatched = NO;
-            BOOL colorMatched = NO;
+            
             if ([self shapeMatch:card]) {
                 NSLog(@"Shape Match");
                 shapeMatched = YES;
                 score = 1;
             }
-            else shapeMatched = NO;
+            else {
+                shapeMatched = NO;
+                score = 0;
+            }
             
             if ([self colorMatch:card]) {
                 NSLog(@"Color Match");
                 colorMatched = YES;
                 score = 1;
             }
-            else colorMatched = NO;
+            else {
+                colorMatched = NO;
+                score = 0;
+            }
             
             if ([self shadingMatch:card]) {
                 NSLog(@"Shading Match");
                 shadingMatched = YES;
                 score = 1;
             }
-            else shadingMatched = NO;
+            else {
+                shadingMatched = NO;
+                score = 0;
+            }
             
             if ([self numberMatch:card]) {
                 NSLog(@"Number Match");
                 score = 1;
                 numberMatched = YES;
             }
-            else numberMatched = NO;
+            else {
+                numberMatched = NO;
+                score = 0;
+            }
         }
-        
-        
     }
+    if(!shapeMatched && !colorMatched && !shadingMatched && !numberMatched) score = 1;
     return score;
 }
 
