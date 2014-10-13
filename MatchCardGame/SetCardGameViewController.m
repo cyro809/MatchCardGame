@@ -45,17 +45,22 @@
 
 - (void) viewDidLoad
 {
+    self.start = YES;
     [self updateUI];
 }
 
 
 - (IBAction)touchReDealButton:(id)sender {
+    self.gameFinish = [NSDate date];
+    //NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    NSLog(@"Finish: %@", self.gameFinish);
     self.game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
     //self.scoreLabel.text = @"Score: 0";
     //self.lastPlayLabel.text = @"Last Play: ";
     self.game.numCards = 3;
     self.game.gameStart = NO;
+    self.start = YES;
     self.game.lastPlays = [[NSMutableArray alloc] init];
 }
 
@@ -67,16 +72,26 @@
         SetCard *card =  (SetCard*)[self.game cardAtIndex:cardButtonIndex];
         
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
+        
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        
         self.lastPlayLabel.attributedText = [self setCards:[self.game cardsChosen]];
+        
         if ([self.game numCardsChosen] >= [self.game numCards]) {
             
         }
+        
         if(card.isChosen) {
             cardButton.alpha = 0.3;
         }
         else {
             cardButton.alpha = 1;
+        }
+        
+        if(self.start) {
+            self.gameStart = [NSDate date];
+            NSLog(@"Start: %@", self.gameStart);
+            self.start = NO;
         }
         
         cardButton.enabled = !card.isMatched;

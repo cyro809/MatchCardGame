@@ -10,5 +10,8 @@
 #import "CardGameViewController.h"
 
 @interface SetCardGameViewController : CardGameViewController
-
+@property (nonatomic, strong) NSString *gameType;
+@property (nonatomic, strong) NSDate *gameStart;
+@property (nonatomic, strong) NSDate *gameFinish;
+@property (nonatomic) BOOL start;
 @end
