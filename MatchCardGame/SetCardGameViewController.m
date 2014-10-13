@@ -15,6 +15,7 @@
 @property (strong, nonatomic) SetCardGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 
 @end
 
@@ -67,6 +68,10 @@
         
         [cardButton setAttributedTitle:[self attributedTitleForCard:card] forState:UIControlStateNormal];
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        self.lastPlayLabel.attributedText = [self setCards:[self.game cardsChosen]];
+        if ([self.game numCardsChosen] >= [self.game numCards]) {
+            
+        }
         if(card.isChosen) {
             cardButton.alpha = 0.3;
         }
@@ -104,6 +109,16 @@
                                                                 
 }
 
+- (NSAttributedString *)setCards:(NSArray *)chosenSetCards
+{
+    //NSMutableArray *lastCards = [[NSMutableArray alloc] init];
+    NSMutableAttributedString *cardString = [[NSMutableAttributedString alloc] init];
+    for (SetCard *card in chosenSetCards) {
+        [cardString appendAttributedString:[self attributedTitleForCard:card]];
+        //[lastCards insertObject:cardString atIndex:0];
+    }
+    return cardString;
+}
 
 - (NSString *)titleForCard:(Card *)card
 {

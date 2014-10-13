@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Set Card Game View Controller - SetCardGame-->
+        <!--Set Card Game View Controller - Set Card Game-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="SetCardGameViewController" sceneMemberID="viewController">
+                <viewController title="Set Card Game" id="vXZ-lx-hvc" customClass="SetCardGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -409,9 +409,9 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="SetCardGame" id="B6U-BZ-491"/>
+                    <tabBarItem key="tabBarItem" title="SetCardGame" image="seticon" id="B6U-BZ-491"/>
                     <connections>
-                        <outlet property="lastPlayLabel" destination="8bk-Zy-5jU" id="dzQ-KA-guG"/>
+                        <outlet property="lastPlayLabel" destination="8bk-Zy-5jU" id="QUE-ok-PAY"/>
                         <outlet property="lastPlaySlider" destination="KfZ-Cy-ANc" id="0P9-hy-x8P"/>
                         <outlet property="scoreLabel" destination="rya-1A-I6y" id="iOi-wr-1Si"/>
                         <outletCollection property="cardButtons" destination="1xz-ou-JbO" id="x9w-UC-bWJ"/>
@@ -461,18 +461,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="tdz-uS-mDR" kind="relationship" relationship="viewControllers" id="X3n-jF-wKR"/>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="Ovx-0B-v42"/>
+                        <segue destination="tdz-uS-mDR" kind="relationship" relationship="viewControllers" id="Ucq-U7-ZSM"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GV7-CK-93t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-238" y="328"/>
         </scene>
-        <!--Card Game View Controller - MatchCard-->
+        <!--Card Game View Controller - Card Match Game-->
         <scene sceneID="HYw-Li-KMm">
             <objects>
-                <viewController id="tdz-uS-mDR" customClass="CardGameViewController" sceneMemberID="viewController">
+                <viewController title="Card Match Game" id="tdz-uS-mDR" customClass="CardGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VkW-wP-gBa"/>
                         <viewControllerLayoutGuide type="bottom" id="hfz-io-bYh"/>
@@ -932,6 +932,7 @@
     <resources>
         <image name="card" width="64" height="96"/>
         <image name="cardfront" width="64" height="96"/>
+        <image name="seticon" width="30" height="30"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
