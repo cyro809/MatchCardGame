@@ -45,19 +45,31 @@
 
 - (void) viewDidLoad
 {
+    self.gameType = @"SET GAME";
     self.start = YES;
     [self updateUI];
 }
 
 
 - (IBAction)touchReDealButton:(id)sender {
-    self.gameFinish = [NSDate date];
-    //NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    NSLog(@"Finish: %@", self.gameFinish);
+    self.gameFinishTime = [NSDate date];
+    NSLog(@"Finish: %@", self.gameFinishTime);
+    
+    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
+    
     self.game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
+    
+    self.gameRecord = [NSUserDefaults standardUserDefaults];
+    [self.gameRecord setObject:self.gameType forKey:@"gameType"];
+    [self.gameRecord setObject:self.gameStartTime forKey:@"gameStartTime"];
+    [self.gameRecord setObject:self.gameFinishTime forKey:@"gameFinishTime"];
+    [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
+    [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
     //self.scoreLabel.text = @"Score: 0";
     //self.lastPlayLabel.text = @"Last Play: ";
+    
+    
     self.game.numCards = 3;
     self.game.gameStart = NO;
     self.start = YES;
@@ -89,8 +101,8 @@
         }
         
         if(self.start) {
-            self.gameStart = [NSDate date];
-            NSLog(@"Start: %@", self.gameStart);
+            self.gameStartTime = [NSDate date];
+            NSLog(@"Start: %@", self.gameStartTime);
             self.start = NO;
         }
         

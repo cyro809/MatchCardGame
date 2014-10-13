@@ -11,7 +11,8 @@
 
 @interface SetCardGameViewController : CardGameViewController
 @property (nonatomic, strong) NSString *gameType;
-@property (nonatomic, strong) NSDate *gameStart;
-@property (nonatomic, strong) NSDate *gameFinish;
+@property (nonatomic, strong) NSDate *gameStartTime;
+@property (nonatomic, strong) NSDate *gameFinishTime;
 @property (nonatomic) BOOL start;
+@property (nonatomic) NSUserDefaults *gameRecord;
 @end
