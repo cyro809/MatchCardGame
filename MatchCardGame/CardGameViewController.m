@@ -36,6 +36,12 @@
     return [[PlayingCardDeck alloc] init];
 }
 
+- (void) viewDidLoad
+{
+    self.gameType = @"Matching Game";
+    self.start = YES;
+    [self updateUI];
+}
 
 - (IBAction)touchCardButton:(UIButton *)sender
 {
@@ -78,10 +84,26 @@
 
 
 - (IBAction)touchReDealButton:(UIButton *)sender {
+    self.gameFinishTime = [NSDate date];
+    NSLog(@"Finish: %@", self.gameFinishTime);
+    
+    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
+    
     self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    
+    self.gameRecord = [NSUserDefaults standardUserDefaults];
+    [self.gameRecord setObject:self.gameType forKey:@"gameType"];
+    [self.gameRecord setObject:self.gameStartTime forKey:@"gameStartTime"];
+    [self.gameRecord setObject:self.gameFinishTime forKey:@"gameFinishTime"];
+    [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
+    [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
+
+    
     [self updateUI];
+    
     self.scoreLabel.text = @"Score: 0";
     self.lastPlayLabel.text = @"Last Play: ";
+    
     if (self.modeSwitch.selectedSegmentIndex == 0)
     {
         self.game.numCards = 2;
@@ -90,6 +112,7 @@
     {
         self.game.numCards = 3;
     }
+    
     self.game.gameStart = NO;
     self.game.lastPlays = [[NSMutableArray alloc] init];
 }
@@ -99,17 +122,29 @@
 {
     for(UIButton *cardButton in self.cardButtons) {
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+        
         Card *card = [self.game cardAtIndex:cardButtonIndex];
+        
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
+        
         cardButton.enabled = !card.isMatched;
+        
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        
         if([self.game.lastPlays count] > 0)
         {
             self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.lastPlays objectAtIndex:0]];
             self.lastPlaySlider.maximumValue = [self.game.lastPlays count]-1;
         }
     }
+    
+    if(self.start) {
+        self.gameStartTime = [NSDate date];
+        NSLog(@"Start: %@", self.gameStartTime);
+        self.start = NO;
+    }
+    
     if (self.game.gameStart){
         self.modeSwitch.userInteractionEnabled = NO;
         self.modeSwitch.enabled = NO;

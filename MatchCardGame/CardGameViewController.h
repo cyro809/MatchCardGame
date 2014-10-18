@@ -9,4 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface CardGameViewController : UIViewController
+
+@property (nonatomic, strong) NSString *gameType;
+@property (nonatomic, strong) NSDate *gameStartTime;
+@property (nonatomic, strong) NSDate *gameFinishTime;
+@property (nonatomic) BOOL start;
+@property (nonatomic) NSUserDefaults *gameRecord;
+
 @end
