@@ -392,27 +392,11 @@
                                     <action selector="touchReDealButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="CMN-Jk-xRi"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Last Play:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bk-Zy-5jU">
-                                <rect key="frame" x="14" y="347" width="306" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="KfZ-Cy-ANc">
-                                <rect key="frame" x="75" y="325" width="159" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="lastPlaysSlider:" destination="vXZ-lx-hvc" eventType="valueChanged" id="hke-6W-USz"/>
-                                </connections>
-                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="SetCardGame" image="seticon" id="B6U-BZ-491"/>
                     <connections>
-                        <outlet property="lastPlayLabel" destination="8bk-Zy-5jU" id="QUE-ok-PAY"/>
-                        <outlet property="lastPlaySlider" destination="KfZ-Cy-ANc" id="0P9-hy-x8P"/>
                         <outlet property="scoreLabel" destination="rya-1A-I6y" id="iOi-wr-1Si"/>
                         <outletCollection property="cardButtons" destination="1xz-ou-JbO" id="x9w-UC-bWJ"/>
                         <outletCollection property="cardButtons" destination="aa6-HK-5Rl" id="Wqx-da-Xou"/>
