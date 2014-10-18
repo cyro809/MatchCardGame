@@ -15,7 +15,6 @@
 @property (strong, nonatomic) SetCardGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 
 @end
 
@@ -87,7 +86,6 @@
         
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
         
-        self.lastPlayLabel.attributedText = [self setCards:[self.game cardsChosen]];
         
         if ([self.game numCardsChosen] >= [self.game numCards]) {
             
