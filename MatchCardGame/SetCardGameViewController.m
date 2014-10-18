@@ -41,7 +41,6 @@
     [self updateUI];
 }
 
-
 - (void) viewDidLoad
 {
     self.gameType = @"SET GAME";
@@ -49,12 +48,23 @@
     [self updateUI];
 }
 
+- (void)saveGameResults
+{
+    self.gameResult = @{@"Start": self.gameStartTime,
+                        @"finish": self.gameFinishTime,
+                        @"score": [NSNumber numberWithInteger:self.game.score],
+                        @"duration":[NSNumber numberWithDouble:self.gameDurationTime]};
+    
+    [self.gameResults addObject:self.gameResult];
+    self.gameRecord = [NSUserDefaults standardUserDefaults];
+    [self.gameRecord setObject:self.gameResults forKey:@"gameResults"];
+}
 
 - (IBAction)touchReDealButton:(id)sender {
     self.gameFinishTime = [NSDate date];
     NSLog(@"Finish: %@", self.gameFinishTime);
     
-    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
+    self.gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
     
     self.game = [[SetCardGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     [self updateUI];
@@ -63,7 +73,7 @@
     [self.gameRecord setObject:self.gameType forKey:@"gameType"];
     [self.gameRecord setObject:self.gameStartTime forKey:@"gameStartTime"];
     [self.gameRecord setObject:self.gameFinishTime forKey:@"gameFinishTime"];
-    [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
+    [self.gameRecord setDouble:self.gameDurationTime forKey:@"gameDurationTime"];
     [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
     //self.scoreLabel.text = @"Score: 0";
     //self.lastPlayLabel.text = @"Last Play: ";
