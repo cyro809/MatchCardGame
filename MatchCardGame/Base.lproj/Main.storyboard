@@ -447,11 +447,31 @@
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="Ovx-0B-v42"/>
                         <segue destination="tdz-uS-mDR" kind="relationship" relationship="viewControllers" id="Ucq-U7-ZSM"/>
+                        <segue destination="xeQ-Uh-fUw" kind="relationship" relationship="viewControllers" id="WGY-Pu-l8X"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GV7-CK-93t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-238" y="328"/>
+        </scene>
+        <!--View Controller - Item-->
+        <scene sceneID="6Ws-IX-GeQ">
+            <objects>
+                <viewController id="xeQ-Uh-fUw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="csN-a2-qoI"/>
+                        <viewControllerLayoutGuide type="bottom" id="l0L-ai-yXv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HvQ-pp-m7I">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="sAm-eq-XIi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xG8-r7-le8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="331" y="-540"/>
         </scene>
         <!--Card Game View Controller - Card Match Game-->
         <scene sceneID="HYw-Li-KMm">
