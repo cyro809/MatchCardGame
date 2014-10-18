@@ -15,5 +15,7 @@
 @property (nonatomic, strong) NSDate *gameFinishTime;
 @property (nonatomic) BOOL start;
 @property (nonatomic) NSUserDefaults *gameRecord;
-
+@property (nonatomic, strong) NSMutableArray *gameResults;
+@property (nonatomic, strong) NSDictionary *gameResult;
+@property (nonatomic) NSTimeInterval gameDurationTime;
 @end
