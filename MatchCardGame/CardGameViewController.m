@@ -94,11 +94,13 @@
     }
 }
 
+static const double FLIPTRANSITIONDURATION = 0.5;
+
 - (void)flipTransition:(UIGestureRecognizer *)gesture
 {
     Card *card = [self.game cardAtIndex:gesture.view.tag];
     [UIView transitionWithView:gesture.view
-                      duration:0.5
+                      duration:FLIPTRANSITIONDURATION
                        options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
                            card.chosen = !card.chosen;
                            [self updateView:gesture.view forCard:card];
@@ -155,8 +157,13 @@ static const double CARDSPACINGINPERCENT = 0.08;
                 [self updateView:cardView forCard:card];
             }
             else {
-                [cardView removeFromSuperview];
-                [self.cardViews removeObject:cardView];
+                if ([self.gameType isEqualToString:@"SET GAME"]) {
+                    [cardView removeFromSuperview];
+                    [self.cardViews removeObject:cardView];
+                }
+                else {
+                    cardView.alpha =card.isMatched ? 0.5 : 1.0;
+                }
             }
         }
         
