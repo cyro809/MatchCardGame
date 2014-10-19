@@ -108,24 +108,33 @@ static const double CARDSPACINGINPERCENT = 0.08;
         }];
         UIView *cardView;
         if (viewIndex == NSNotFound) {
-            cardView = [self createViewForCard:card];
-            cardView.tag = cardIndex;
+            if (!card.isMatched) {
+                cardView = [self createViewForCard:card];
+                cardView.tag = cardIndex;
+                
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(touchCard:)];
+                
+                UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                            action:@selector(swipeCard:)];
+                [cardView addGestureRecognizer:tap];
+                [cardView addGestureRecognizer:swipe];
+                
+                [self.cardViews addObject:cardView];
+                viewIndex = [self.cardViews indexOfObject:cardView];
+                [self.gridView addSubview:cardView];
+            }
             
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                  action:@selector(touchCard:)];
-            
-            UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                  action:@selector(swipeCard:)];
-            [cardView addGestureRecognizer:tap];
-            [cardView addGestureRecognizer:swipe];
-            
-            [self.cardViews addObject:cardView];
-            viewIndex = [self.cardViews indexOfObject:cardView];
-            [self.gridView addSubview:cardView];
         } else {
             cardView = self.cardViews[viewIndex];
-            [self updateView:cardView forCard:card];
-            cardView.alpha = card.matched ? 0.3 : 1.0;
+            
+            if (!card.isMatched) {
+                [self updateView:cardView forCard:card];
+            }
+            else {
+                [cardView removeFromSuperview];
+                [self.cardViews removeObject:cardView];
+            }
         }
         CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
                                           inColumn:viewIndex % self.grid.columnCount];
