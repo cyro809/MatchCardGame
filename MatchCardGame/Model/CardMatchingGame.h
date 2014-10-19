@@ -30,4 +30,7 @@
 @property (nonatomic) NSUInteger temp_score;
 @property (nonatomic) NSUInteger current_play_points;
 
+@property (nonatomic) NSUInteger numberOfDealtCards;
+
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Deck.h"
 
 @interface CardGameViewController : UIViewController
 
@@ -15,5 +16,14 @@
 @property (nonatomic, strong) NSDate *gameFinishTime;
 @property (nonatomic) BOOL start;
 @property (nonatomic) NSUserDefaults *gameRecord;
+
+@property (nonatomic) NSUInteger numberOfStartingCards;
+@property (nonatomic) CGSize maxCardSize;
+
+- (Deck *)createDeck;
+- (UIView *)createViewForCard:(Card *)card;
+- (void)updateView:(UIView *)view forCard:(Card *)card;
+
+- (void)updateUI;
 
 @end

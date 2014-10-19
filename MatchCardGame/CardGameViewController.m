@@ -11,74 +11,126 @@
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
+#import "Grid.h"
 
 @interface CardGameViewController ()
 
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 @property (weak, nonatomic) IBOutlet UISlider *lastPlaySlider;
+
+@property (strong, nonatomic) Grid *grid;
+@property (strong, nonatomic) NSMutableArray *cardViews;
+@property (weak, nonatomic) IBOutlet UIView *gridView;
 @end
 
 @implementation CardGameViewController
 
+- (NSMutableArray *)cardViews
+{
+    if (!_cardViews) _cardViews = [NSMutableArray arrayWithCapacity:self.numberOfStartingCards];
+    return _cardViews;
+}
+
+- (Grid *)grid
+{
+    if (!_grid) {
+        _grid = [[Grid alloc] init];
+        _grid.cellAspectRatio = self.maxCardSize.width / self.maxCardSize.height;
+        _grid.minimumNumberOfCells = self.numberOfStartingCards;
+        _grid.maxCellWidth = self.maxCardSize.width;
+        _grid.maxCellHeight = self.maxCardSize.height;
+        _grid.size = self.gridView.frame.size;
+    }
+    return _grid;
+}
+
+
 - (CardMatchingGame *)game
 {
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    
+    if (!_game) {
+        _game = [[CardMatchingGame alloc] initWithCardCount:self.numberOfStartingCards
+                                                  usingDeck:[self createDeck]];
+    }
     return _game;
 }
 
-- (Deck *) createDeck
+- (Deck *)createDeck // abstract
 {
-    return [[PlayingCardDeck alloc] init];
+    return nil;
 }
 
-- (void) viewDidLoad
-{
-    self.gameType = @"Matching Game";
-    self.start = YES;
+- (IBAction)touchDealButton:(UIButton *)sender {
+    self.game = nil;
+    self.cardViews = nil;
     [self updateUI];
 }
 
-- (IBAction)touchCardButton:(UIButton *)sender
+- (UIView *)createViewForCard:(Card *)card
 {
-    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    self.lastPlaySlider.value = 0;
-    self.lastPlayLabel.textColor = [UIColor blackColor];
-    [self updateUI];
+    UIView *view = [[UIView alloc] init];
+    [self updateView:view forCard:card];
+    return view;
 }
 
-- (IBAction)touchModeSwitch:(id)sender {
-    if (self.modeSwitch.selectedSegmentIndex == 0)
-    {
-        self.game.numCards = 2;
+- (void)updateView:(UIView *)view forCard:(Card *)card
+{
+    view.backgroundColor = [UIColor blueColor];
+}
+
+- (void)touchCard:(UITapGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [self.game chooseCardAtIndex:gesture.view.tag];
+        [self updateUI];
     }
-    else if (self.modeSwitch.selectedSegmentIndex == 1)
-    {
-        self.game.numCards = 3;
+}
+
+#define CARDSPACINGINPERCENT 0.08
+
+- (void)updateUI
+{
+    for (NSUInteger cardIndex = 0;
+         cardIndex < self.game.numberOfDealtCards;
+         cardIndex++) {
+        Card *card = [self.game cardAtIndex:cardIndex];
+        
+        NSUInteger viewIndex = [self.cardViews indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[UIView class]]) {
+                if (((UIView *)obj).tag == cardIndex) return YES;
+            }
+            return NO;
+        }];
+        UIView *cardView;
+        if (viewIndex == NSNotFound) {
+            cardView = [self createViewForCard:card];
+            cardView.tag = cardIndex;
+            
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(touchCard:)];
+            [cardView addGestureRecognizer:tap];
+            
+            [self.cardViews addObject:cardView];
+            viewIndex = [self.cardViews indexOfObject:cardView];
+            [self.gridView addSubview:cardView];
+        } else {
+            cardView = self.cardViews[viewIndex];
+            [self updateView:cardView forCard:card];
+            cardView.alpha = card.matched ? 0.6 : 1.0;
+        }
+        CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
+                                          inColumn:viewIndex % self.grid.columnCount];
+        frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
+        cardView.frame = frame;
     }
     
 }
 
-
-- (IBAction)lastPlaysSlider:(UISlider *)sender {
-    NSUInteger sliderValue = [sender value];
-    if ([self.game.lastPlays count])
-    {
-        self.lastPlayLabel.text = [self.game.lastPlays objectAtIndex:sliderValue];
-        if(sliderValue > 0)
-        {
-            self.lastPlayLabel.textColor = [UIColor grayColor];
-        }
-        else
-        {
-            self.lastPlayLabel.textColor = [UIColor blackColor];
-        }
-    }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
 }
 
@@ -89,7 +141,7 @@
     
     NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
     
-    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
+    //self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
     
     self.gameRecord = [NSUserDefaults standardUserDefaults];
     [self.gameRecord setObject:self.gameType forKey:@"gameType"];
@@ -116,66 +168,5 @@
     self.game.gameStart = NO;
     self.game.lastPlays = [[NSMutableArray alloc] init];
 }
-
-
-- (void) updateUI
-{
-    for(UIButton *cardButton in self.cardButtons) {
-        int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-        
-        Card *card = [self.game cardAtIndex:cardButtonIndex];
-        
-        [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-        [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-        
-        cardButton.enabled = !card.isMatched;
-        
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-        
-        if([self.game.lastPlays count] > 0)
-        {
-            self.lastPlayLabel.text = [NSString stringWithFormat:@"Last Play: %@", [self.game.lastPlays objectAtIndex:0]];
-            self.lastPlaySlider.maximumValue = [self.game.lastPlays count]-1;
-        }
-    }
-    
-    if(self.start) {
-        self.gameStartTime = [NSDate date];
-        NSLog(@"Start: %@", self.gameStartTime);
-        self.start = NO;
-    }
-    
-    if (self.game.gameStart){
-        self.modeSwitch.userInteractionEnabled = NO;
-        self.modeSwitch.enabled = NO;
-    }
-    else {
-        self.modeSwitch.userInteractionEnabled = YES;
-        self.modeSwitch.enabled = YES;
-    }
-}
-
-- (NSString *)titleForCard:(Card *)card
-{
-    return card.isChosen ? card.contents : @"";
-}
-
-- (UIImage *)backgroundImageForCard:(Card *)card
-{
-    return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"card"];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end

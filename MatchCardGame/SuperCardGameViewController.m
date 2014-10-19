@@ -7,43 +7,52 @@
 //
 
 #import "SuperCardGameViewController.h"
+#import "PlayingCardView.h"
+#import "CardMatchingGame.h"
+#import "PlayingCard.h"
+#import "PlayingCardDeck.h"
+#import "Grid.h"
 
 @interface SuperCardGameViewController ()
+
 
 @end
 
 @implementation SuperCardGameViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+
+- (Deck *)createDeck
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    self.gameType = @"Playing Cards";
+    return [[PlayingCardDeck alloc] init];
+}
+
+- (UIView *)createViewForCard:(Card *)card
+{
+    PlayingCardView *view = [[PlayingCardView alloc] init];
+    [self updateView:view forCard:card];
+    return view;
+}
+
+- (void)updateView:(UIView *)view forCard:(Card *)card
+{
+    if (![card isKindOfClass:[PlayingCard class]]) return;
+    if (![view isKindOfClass:[PlayingCardView class]]) return;
+    
+    PlayingCard *playingCard = (PlayingCard *)card;
+    PlayingCardView *playingCardView = (PlayingCardView *)view;
+    playingCardView.rank = playingCard.rank;
+    playingCardView.suit = playingCard.suit;
+    playingCardView.faceUp = playingCard.chosen;
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.numberOfStartingCards = 35;
+    self.maxCardSize = CGSizeMake(80.0, 120.0);
+    [self updateUI];
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -17,6 +17,9 @@
 
 @implementation CardMatchingGame
 
+- (NSUInteger)numberOfDealtCards {
+    return [self.cards count];
+}
 
 - (NSMutableArray*) lastPlays
 {
