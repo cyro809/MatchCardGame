@@ -90,16 +90,29 @@
 - (void)touchCard:(UITapGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateEnded) {
-        [self.game chooseCardAtIndex:gesture.view.tag];
-        [self updateUI];
+        [self flipTransition:gesture];
     }
+}
+
+- (void)flipTransition:(UIGestureRecognizer *)gesture
+{
+    Card *card = [self.game cardAtIndex:gesture.view.tag];
+    [UIView transitionWithView:gesture.view
+                      duration:0.5
+                       options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                           card.chosen = !card.chosen;
+                           [self updateView:gesture.view forCard:card];
+                       } completion:^(BOOL finished) {
+                           card.chosen = !card.chosen;
+                           [self.game chooseCardAtIndex:gesture.view.tag];
+                           [self updateUI];
+                       }];
 }
 
 - (void)swipeCard:(UISwipeGestureRecognizer *)gesture
 {
     if(gesture.state == UIGestureRecognizerStateEnded) {
-        [self.game chooseCardAtIndex:gesture.view.tag];
-        [self updateUI];
+        [self flipTransition:gesture];
     }
 }
 
