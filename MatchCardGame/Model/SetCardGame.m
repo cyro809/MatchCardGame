@@ -11,6 +11,7 @@
 #import "SetCardDeck.h"
 @interface SetCardGame()
 @property (nonatomic, readwrite) NSUInteger score;
+@property (nonatomic, strong) Deck *deck;
 @end
 
 @implementation SetCardGame
@@ -34,6 +35,7 @@
     self = [super init]; //super's designated initializer
     
     if (self) {
+        _deck = deck;
         for (int i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {

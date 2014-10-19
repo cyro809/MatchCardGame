@@ -19,6 +19,8 @@
 - (void) twoCardMode:(Card *)card;
 - (void) threeCardMode:(Card *)card;
 - (void) printPlay:(Card *)card current:(NSString *)currentPlay;
+- (void) drawNewCard;
+- (BOOL) isDeckEmpty;
 @property (nonatomic, readonly) NSUInteger score;
 
 @property (nonatomic) int numCards;

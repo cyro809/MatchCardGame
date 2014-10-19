@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 @property (weak, nonatomic) IBOutlet UISlider *lastPlaySlider;
+@property (weak, nonatomic) IBOutlet UIButton *addCardsButton;
 
 @property (strong, nonatomic) Grid *grid;
 @property (strong, nonatomic) NSMutableArray *cardViews;
@@ -61,7 +62,18 @@
     return nil;
 }
 
-
+- (IBAction)touchAddNewCards:(UIButton *)sender {
+    NSLog(@"ADICIONA PORRA!!!!!!!!!!!!!");
+    NSLog(@"Sender tag: %d", sender.tag);
+    for (int i = 0; i < sender.tag; i++) {
+        NSLog(@"TAG: %d", i);
+        [self.game drawNewCard];
+    }
+    if ([self.game isDeckEmpty]) {
+        sender.enabled = NO;
+    }
+    [self updateUI];
+}
 
 - (UIView *)createViewForCard:(Card *)card
 {
@@ -95,9 +107,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
 
 - (void)updateUI
 {
-    for (NSUInteger cardIndex = 0;
-         cardIndex < self.game.numCardsDealed;
-         cardIndex++) {
+    for (NSUInteger cardIndex = 0; cardIndex < self.game.numCardsDealed; cardIndex++) {
         Card *card = [self.game cardAtIndex:cardIndex];
         
         NSUInteger viewIndex = [self.cardViews indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -136,10 +146,15 @@ static const double CARDSPACINGINPERCENT = 0.08;
                 [self.cardViews removeObject:cardView];
             }
         }
-        CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
-                                          inColumn:viewIndex % self.grid.columnCount];
-        frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
-        cardView.frame = frame;
+        
+        self.grid.minimumNumberOfCells = [self.cardViews count];
+        for (NSUInteger viewIndex = 0; viewIndex < [self.cardViews count]; viewIndex++) {
+            CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
+                                              inColumn:viewIndex % self.grid.columnCount];
+            frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
+            ((UIView *)self.cardViews[viewIndex]).frame = frame;
+        }
+        
     }
     
 }
@@ -157,21 +172,26 @@ static const double CARDSPACINGINPERCENT = 0.08;
     
     NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
     
-    //self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:[self createDeck]];
-    
     self.gameRecord = [NSUserDefaults standardUserDefaults];
     [self.gameRecord setObject:self.gameType forKey:@"gameType"];
     [self.gameRecord setObject:self.gameStartTime forKey:@"gameStartTime"];
     [self.gameRecord setObject:self.gameFinishTime forKey:@"gameFinishTime"];
     [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
     [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
-
+    
+    for (UIView *subView in self.cardViews) {
+        [subView removeFromSuperview];
+    }
+    
     self.game = nil;
     self.cardViews = nil;
+    self.grid = nil;
     [self updateUI];
     
     self.scoreLabel.text = @"Score: 0";
     self.lastPlayLabel.text = @"Last Play: ";
+    
+    self.addCardsButton.enabled = YES;
     
     self.game.gameStart = NO;
     self.game.lastPlays = [[NSMutableArray alloc] init];

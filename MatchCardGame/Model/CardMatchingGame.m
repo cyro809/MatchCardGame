@@ -7,10 +7,12 @@
 //
 
 #import "CardMatchingGame.h"
+#import "Deck.h"
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSUInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; //of cards
+@property (nonatomic, strong) Deck *deck;
 
 @end
 
@@ -37,12 +39,29 @@
     return _cards;
 }
 
+- (void)drawNewCard
+{
+    Card *card = [self.deck drawRandomCard];
+    
+    if(card) {
+        [self.cards addObject:card];
+    }
+}
+
+- (BOOL)isDeckEmpty
+{
+    if ([self.deck isEmpty]) return YES;
+    return NO;
+}
+
 - (instancetype) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
 {
     self = [super init]; //super's designated initializer
     
     if (self) {
+        _deck = deck;
         for (int i = 0; i < count; i++) {
+            
             Card *card = [deck drawRandomCard];
             if (card) {
                 [self.cards addObject:card];
