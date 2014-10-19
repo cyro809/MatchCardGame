@@ -37,9 +37,7 @@
 
 - (BOOL) shapeMatch:(SetCard *)otherCard
 {
-    NSString *thisShape = [self.shape substringToIndex:1];
-    NSString *otherShape = [otherCard.shape substringToIndex:1];
-    if ([thisShape isEqual:otherShape]) return YES;
+    if ([self.shape isEqual:otherCard.shape]) return YES;
     else return NO;
 }
 
