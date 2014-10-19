@@ -106,18 +106,6 @@
                                     <action selector="lastPlaysSlider:" destination="tdz-uS-mDR" eventType="valueChanged" id="Esb-nD-IK5"/>
                                 </connections>
                             </slider>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="sZh-kF-sDg">
-                                <rect key="frame" x="20" y="400" width="95" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <segments>
-                                    <segment title="2 Card"/>
-                                    <segment title="3 Card"/>
-                                </segments>
-                                <connections>
-                                    <action selector="touchModeSwitch:" destination="tdz-uS-mDR" eventType="valueChanged" id="78Y-5N-Fmz"/>
-                                </connections>
-                            </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upa-jh-Wrr">
                                 <rect key="frame" x="221" y="407" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -138,7 +126,6 @@
                         <outlet property="gridView" destination="3F2-oi-aYl" id="anC-VK-cPZ"/>
                         <outlet property="lastPlayLabel" destination="Iec-06-Qk7" id="67l-tG-EBM"/>
                         <outlet property="lastPlaySlider" destination="5gx-NJ-Ot7" id="PsX-LY-7t4"/>
-                        <outlet property="modeSwitch" destination="sZh-kF-sDg" id="jyg-aJ-6Zb"/>
                         <outlet property="scoreLabel" destination="upa-jh-Wrr" id="aUy-py-tRi"/>
                     </connections>
                 </viewController>
