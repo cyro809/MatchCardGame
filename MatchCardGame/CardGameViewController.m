@@ -67,13 +67,7 @@
 - (UIView *)createViewForCard:(Card *)card
 {
     UIView *view = [[UIView alloc] init];
-    [self updateView:view forCard:card];
     return view;
-}
-
-- (void)updateView:(UIView *)view forCard:(Card *)card
-{
-    view.backgroundColor = [UIColor blueColor];
 }
 
 - (void)touchCard:(UITapGestureRecognizer *)gesture
