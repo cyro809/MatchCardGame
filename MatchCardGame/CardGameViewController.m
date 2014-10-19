@@ -99,16 +99,19 @@ static const double FLIPTRANSITIONDURATION = 0.5;
 - (void)flipTransition:(UIGestureRecognizer *)gesture
 {
     Card *card = [self.game cardAtIndex:gesture.view.tag];
-    [UIView transitionWithView:gesture.view
-                      duration:FLIPTRANSITIONDURATION
-                       options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-                           card.chosen = !card.chosen;
-                           [self updateView:gesture.view forCard:card];
-                       } completion:^(BOOL finished) {
-                           card.chosen = !card.chosen;
-                           [self.game chooseCardAtIndex:gesture.view.tag];
-                           [self updateUI];
-                       }];
+    if (!card.isMatched) {
+        [UIView transitionWithView:gesture.view
+                          duration:FLIPTRANSITIONDURATION
+                           options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                               card.chosen = !card.chosen;
+                               [self updateView:gesture.view forCard:card];
+                           } completion:^(BOOL finished) {
+                               card.chosen = !card.chosen;
+                               [self.game chooseCardAtIndex:gesture.view.tag];
+                               [self updateUI];
+                           }];
+    }
+    
 }
 
 - (void)swipeCard:(UISwipeGestureRecognizer *)gesture
