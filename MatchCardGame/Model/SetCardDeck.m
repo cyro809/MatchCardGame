@@ -19,13 +19,16 @@
         for (NSString *shape in [SetCard validShapes]) {
             for (UIColor *color in [SetCard validColors]) {
                 for(NSString *shading in [SetCard validShadings]) {
-                    SetCard *card = [[SetCard alloc] init];
-                    card.color = color;
-                    card.shape = shape;
-                    card.shading = shading;
-                    card.numOfShapes = [card.shape length];
-                    card.partialMatch = NO;
-                    [self addCard:card];
+                    for (NSUInteger number = 1; number<= [SetCard maxNumber]; number++) {
+                        SetCard *card = [[SetCard alloc] init];
+                        card.color = color;
+                        card.shape = shape;
+                        card.shading = shading;
+                        card.numOfShapes = number;
+                        card.partialMatch = NO;
+                        [self addCard:card];
+                    }
+                    
                 }
                 
             }

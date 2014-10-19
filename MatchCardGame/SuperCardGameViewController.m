@@ -20,7 +20,6 @@
 
 @implementation SuperCardGameViewController
 
-
 - (Deck *)createDeck
 {
     self.gameType = @"Playing Cards";

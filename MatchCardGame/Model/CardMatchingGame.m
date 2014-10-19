@@ -53,7 +53,7 @@
             }
         }
     }
-    self.numCards = 2;
+    //self.numCards = 2;
     self.numCardsChosen = 0;
     self.temp_score = 0;
     self.current_play_points = 0;

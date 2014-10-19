@@ -33,6 +33,7 @@
 		D6BF2F0E19F32992003074F0 /* PlayingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F0D19F32992003074F0 /* PlayingCardView.m */; };
 		D6BF2F2019F3534D003074F0 /* SuperCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F1F19F3534D003074F0 /* SuperCardGameViewController.m */; };
 		D6BF2F2319F3E3B3003074F0 /* Grid.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2219F3E3B3003074F0 /* Grid.m */; };
+		D6BF2F2619F40F81003074F0 /* SetCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2519F40F81003074F0 /* SetCardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		D6BF2F1F19F3534D003074F0 /* SuperCardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperCardGameViewController.m; sourceTree = "<group>"; };
 		D6BF2F2119F3E3B3003074F0 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		D6BF2F2219F3E3B3003074F0 /* Grid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grid.m; sourceTree = "<group>"; };
+		D6BF2F2419F40F81003074F0 /* SetCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardView.h; sourceTree = "<group>"; };
+		D6BF2F2519F40F81003074F0 /* SetCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +151,8 @@
 		D61C77B419B09AC10063F1C7 /* MatchCardGame */ = {
 			isa = PBXGroup;
 			children = (
+				D6BF2F2419F40F81003074F0 /* SetCardView.h */,
+				D6BF2F2519F40F81003074F0 /* SetCardView.m */,
 				D6BF2F2119F3E3B3003074F0 /* Grid.h */,
 				D6BF2F2219F3E3B3003074F0 /* Grid.m */,
 				D6BF2F1E19F3534D003074F0 /* SuperCardGameViewController.h */,
@@ -327,6 +332,7 @@
 				D61C77E919B0AADF0063F1C7 /* PlayingCard.m in Sources */,
 				D6300E9F19E2BA48004C21F2 /* SetCard.m in Sources */,
 				D6BF2F2019F3534D003074F0 /* SuperCardGameViewController.m in Sources */,
+				D6BF2F2619F40F81003074F0 /* SetCardView.m in Sources */,
 				D681F6E219B20DED007F4E47 /* CardMatchingGame.m in Sources */,
 				D6BF2F2319F3E3B3003074F0 /* Grid.m in Sources */,
 				D681F6DF19B11BB6007F4E47 /* PlayingCardDeck.m in Sources */,

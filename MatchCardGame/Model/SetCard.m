@@ -12,7 +12,7 @@
 
 + (NSArray *)validShapes
 {
-    return @[@"●",@"●●", @"●●●", @"■", @"■■", @"■■■", @"▲", @"▲▲", @"▲▲▲"];
+    return @[@"oval", @"squiggle", @"diamond"];
 }
 
 + (NSArray *)validColors
@@ -30,7 +30,10 @@
     return @[@1,@2,@3];
 }
 
-+ (NSUInteger) maxNumber { return [[self validNumbersOfShapes] count]; }
++ (NSUInteger)maxNumber
+{
+    return 3;
+}
 
 - (BOOL) shapeMatch:(SetCard *)otherCard
 {
