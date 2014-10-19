@@ -88,12 +88,20 @@
     }
 }
 
-#define CARDSPACINGINPERCENT 0.08
+- (void)swipeCard:(UISwipeGestureRecognizer *)gesture
+{
+    if(gesture.state == UIGestureRecognizerStateEnded) {
+        [self.game chooseCardAtIndex:gesture.view.tag];
+        [self updateUI];
+    }
+}
+
+static const double CARDSPACINGINPERCENT = 0.08;
 
 - (void)updateUI
 {
     for (NSUInteger cardIndex = 0;
-         cardIndex < self.game.numberOfDealtCards;
+         cardIndex < self.game.numCardsDealed;
          cardIndex++) {
         Card *card = [self.game cardAtIndex:cardIndex];
         
@@ -110,7 +118,11 @@
             
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                   action:@selector(touchCard:)];
+            
+            UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
+                                                                                  action:@selector(swipeCard:)];
             [cardView addGestureRecognizer:tap];
+            [cardView addGestureRecognizer:swipe];
             
             [self.cardViews addObject:cardView];
             viewIndex = [self.cardViews indexOfObject:cardView];
