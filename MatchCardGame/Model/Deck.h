@@ -11,6 +11,7 @@
 @interface Deck : Card
 - (void)addCard:(Card *)card atTop:(BOOL)atTop;
 - (void)addCard:(Card *)card;
+- (BOOL)isEmpty;
 
 -(Card *)drawRandomCard;
 @end

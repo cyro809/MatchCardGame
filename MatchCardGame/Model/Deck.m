@@ -31,6 +31,14 @@
     }
 }
 
+- (BOOL)isEmpty
+{
+    if ([self.cards count]) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)addCard:(Card *)card{
     [self addCard:card atTop:NO];
 }
