@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *modeSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *lastPlayLabel;
 @property (weak, nonatomic) IBOutlet UISlider *lastPlaySlider;
 
@@ -164,15 +163,6 @@ static const double CARDSPACINGINPERCENT = 0.08;
     
     self.scoreLabel.text = @"Score: 0";
     self.lastPlayLabel.text = @"Last Play: ";
-    
-    if (self.modeSwitch.selectedSegmentIndex == 0)
-    {
-        self.game.numCards = 2;
-    }
-    else if (self.modeSwitch.selectedSegmentIndex == 1)
-    {
-        self.game.numCards = 3;
-    }
     
     self.game.gameStart = NO;
     self.game.lastPlays = [[NSMutableArray alloc] init];
