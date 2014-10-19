@@ -62,11 +62,7 @@
     return nil;
 }
 
-- (IBAction)touchDealButton:(UIButton *)sender {
-    self.game = nil;
-    self.cardViews = nil;
-    [self updateUI];
-}
+
 
 - (UIView *)createViewForCard:(Card *)card
 {
@@ -130,7 +126,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
         } else {
             cardView = self.cardViews[viewIndex];
             [self updateView:cardView forCard:card];
-            cardView.alpha = card.matched ? 0.6 : 1.0;
+            cardView.alpha = card.matched ? 0.3 : 1.0;
         }
         CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
                                           inColumn:viewIndex % self.grid.columnCount];
@@ -162,7 +158,8 @@ static const double CARDSPACINGINPERCENT = 0.08;
     [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
     [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
 
-    
+    self.game = nil;
+    self.cardViews = nil;
     [self updateUI];
     
     self.scoreLabel.text = @"Score: 0";
