@@ -230,7 +230,15 @@ static const double CARDSPACINGINPERCENT = 0.08;
     [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
     
     for (UIView *subView in self.cardViews) {
-        [subView removeFromSuperview];
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             subView.frame = CGRectMake(0.0,
+                                                        self.gridView.bounds.size.height,
+                                                        self.grid.cellSize.width,
+                                                        self.grid.cellSize.height);
+                         } completion:^(BOOL finished) {
+                             [subView removeFromSuperview];
+                         }];
     }
     
     self.game = nil;
