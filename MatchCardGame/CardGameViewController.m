@@ -255,4 +255,16 @@ static const double CARDSPACINGINPERCENT = 0.08;
     self.game.lastPlays = [[NSMutableArray alloc] init];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    self.grid.size = self.gridView.bounds.size;
+    [self updateUI];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+}
+
 @end
