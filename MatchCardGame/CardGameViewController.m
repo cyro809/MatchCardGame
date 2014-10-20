@@ -125,7 +125,9 @@ static const double CARDSPACINGINPERCENT = 0.08;
 
 - (void)updateUI
 {
-    for (NSUInteger cardIndex = 0; cardIndex < self.game.numCardsDealed; cardIndex++) {
+    for (NSUInteger cardIndex = 0;
+         cardIndex < self.game.numCardsDealed;
+         cardIndex++) {
         Card *card = [self.game cardAtIndex:cardIndex];
         
         NSUInteger viewIndex = [self.cardViews indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
@@ -136,50 +138,75 @@ static const double CARDSPACINGINPERCENT = 0.08;
         }];
         UIView *cardView;
         if (viewIndex == NSNotFound) {
-            if (!card.isMatched) {
+            if (!card.matched) {
                 cardView = [self createViewForCard:card];
                 cardView.tag = cardIndex;
+                cardView.frame = CGRectMake(self.gridView.bounds.size.width,
+                                            self.gridView.bounds.size.height,
+                                            self.grid.cellSize.width,
+                                            self.grid.cellSize.height);
                 
                 UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(touchCard:)];
-                
-                UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self
-                                                                                            action:@selector(swipeCard:)];
                 [cardView addGestureRecognizer:tap];
-                [cardView addGestureRecognizer:swipe];
                 
                 [self.cardViews addObject:cardView];
                 viewIndex = [self.cardViews indexOfObject:cardView];
                 [self.gridView addSubview:cardView];
             }
-            
         } else {
             cardView = self.cardViews[viewIndex];
-            
-            if (!card.isMatched) {
+            if (!card.matched) {
                 [self updateView:cardView forCard:card];
-            }
-            else {
+            } else {
                 if ([self.gameType isEqualToString:@"SET GAME"]) {
-                    [cardView removeFromSuperview];
                     [self.cardViews removeObject:cardView];
-                }
-                else {
-                    cardView.alpha =card.isMatched ? 0.5 : 1.0;
+                    [UIView animateWithDuration:1.0
+                                     animations:^{
+                                         cardView.frame = CGRectMake(0.0,
+                                                                     self.gridView.bounds.size.height,
+                                                                     self.grid.cellSize.width,
+                                                                     self.grid.cellSize.height);
+                                         
+                                     } completion:^(BOOL finished) {
+                                         [cardView removeFromSuperview];
+                                     }];
+                } else {
+                    cardView.alpha = card.matched ? 0.6 : 1.0;
                 }
             }
         }
-        
-        self.grid.minimumNumberOfCells = [self.cardViews count];
-        for (NSUInteger viewIndex = 0; viewIndex < [self.cardViews count]; viewIndex++) {
-            CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
-                                              inColumn:viewIndex % self.grid.columnCount];
-            frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
-            ((UIView *)self.cardViews[viewIndex]).frame = frame;
-        }
-        
     }
     
+    self.grid.minimumNumberOfCells = [self.cardViews count];
+    
+    NSUInteger changedViews = 0;
+    for (NSUInteger viewIndex = 0; viewIndex < [self.cardViews count]; viewIndex++) {
+        CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
+                                          inColumn:viewIndex % self.grid.columnCount];
+        frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
+        UIView *cardView = (UIView *)self.cardViews[viewIndex];
+        if (![self frame:frame equalToFrame:cardView.frame]) {
+            [UIView animateWithDuration:0.5
+                                  delay:1.5 * changedViews++ / [self.cardViews count]
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 cardView.frame = frame;
+                             } completion:NULL];
+        }
+    }
+    
+}
+
+#define FRAMEROUNDINGERROR 0.01
+
+- (BOOL)frame:(CGRect)frame1 equalToFrame:(CGRect)frame2
+{
+    if (fabs(frame1.size.width - frame2.size.width) > FRAMEROUNDINGERROR) return NO;
+    if (fabs(frame1.size.height - frame2.size.height) > FRAMEROUNDINGERROR) return NO;
+    if (fabs(frame1.origin.x - frame2.origin.x) > FRAMEROUNDINGERROR) return NO;
+    if (fabs(frame1.origin.y - frame2.origin.y) > FRAMEROUNDINGERROR) return NO;
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
