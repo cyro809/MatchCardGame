@@ -8,16 +8,26 @@
 
 #import "CardMatchingGame.h"
 #import "Deck.h"
+#import "GameSettings.h"
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSUInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; //of cards
 @property (nonatomic, strong) Deck *deck;
+@property (nonatomic, strong) GameSettings *gameSettings;
 
 @end
 
 
 @implementation CardMatchingGame
+
+- (GameSettings *)gameSettings
+{
+    if (!_gameSettings) {
+        _gameSettings = [[GameSettings alloc] init];
+    }
+    return _gameSettings;
+}
 
 - (NSUInteger)numCardsDealed {
     return [self.cards count];
@@ -72,6 +82,8 @@
             }
         }
     }
+    
+    
     self.numCards = 2;
     self.numCardsChosen = 0;
     self.temp_score = 0;
@@ -79,10 +91,7 @@
     return self;
 }
 
-static const int MISMATCH_PENALTY = 2;
-static const int MATCH_BONUS = 4;
-static const int TRIPLE_BONUS = 2.5;
-static const int COST_TO_CHOOSE = 1;
+
 - (Card *)cardAtIndex:(NSUInteger)index
 {
     return (index<[self.cards count]) ? self.cards[index] : nil;
@@ -104,7 +113,7 @@ static const int COST_TO_CHOOSE = 1;
                 if(otherCard.isChosen && !otherCard.isMatched) {
                     int matchScore = [card match:@[otherCard]];
                     if (matchScore) {
-                        self.current_play_points = matchScore * MATCH_BONUS;
+                        self.current_play_points = matchScore * [GameSettings instance].match_bonus;
                         self.score += self.current_play_points;
                         otherCard.matched = YES;
                         card.matched = YES;
@@ -114,7 +123,7 @@ static const int COST_TO_CHOOSE = 1;
                         [self.lastPlays insertObject:currentPlay atIndex:0];
                     }
                     else {
-                        self.score -= MISMATCH_PENALTY;
+                        self.score -= [GameSettings instance].mismatch_penalty;
                         otherCard.chosen = NO;
                         self.numCardsChosen = 0;
                         currentPlay = [NSString stringWithFormat:@"%@ %@ don't match", card.contents, otherCard.contents];
@@ -123,7 +132,7 @@ static const int COST_TO_CHOOSE = 1;
                     break; // can only choose 2 card for now
                 }
             }
-            self.score -= COST_TO_CHOOSE;
+            self.score -= [GameSettings instance].cost_to_choose;
             card.chosen = YES;
         }
     }
@@ -145,7 +154,7 @@ static const int COST_TO_CHOOSE = 1;
                     int matchScore = [card match:@[otherCard]];
                     if (matchScore) {
                         self.matched = YES;
-                        self.current_play_points = matchScore * MATCH_BONUS * TRIPLE_BONUS;
+                        self.current_play_points = matchScore * [GameSettings instance].match_bonus * [GameSettings instance].triple_bonus;
                         self.temp_score += self.current_play_points;
                     }
                 }
@@ -186,7 +195,7 @@ static const int COST_TO_CHOOSE = 1;
                 self.end_of_play = YES;
                 
             }
-            self.score -= COST_TO_CHOOSE;
+            self.score -= [GameSettings instance].cost_to_choose;
             card.chosen = YES;
         }
         [self printPlay:card current:currentPlay];

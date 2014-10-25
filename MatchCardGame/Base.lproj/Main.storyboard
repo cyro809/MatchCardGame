@@ -4,6 +4,100 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Game Settings View Controller - Settings-->
+        <scene sceneID="H1f-Ro-Hlw">
+            <objects>
+                <viewController id="bOj-SA-I7H" customClass="GameSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YJu-cL-cCk"/>
+                        <viewControllerLayoutGuide type="bottom" id="mS9-Ns-F7Z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wfR-gb-wTC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0If-gs-8Gc">
+                                <rect key="frame" x="175" y="91" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="changeMismatchPenalty:" destination="bOj-SA-I7H" eventType="editingDidEnd" id="eoA-Vz-B5C"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J3M-yU-D9X">
+                                <rect key="frame" x="175" y="142" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="changeCardMatchBonus:" destination="bOj-SA-I7H" eventType="editingDidEnd" id="64V-k4-Zz2"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dzr-JU-QJL">
+                                <rect key="frame" x="175" y="195" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="changeSetMatchBonus:" destination="bOj-SA-I7H" eventType="editingDidEnd" id="kdb-0A-ttI"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Game Settings" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzP-Lh-3Lq">
+                                <rect key="frame" x="20" y="28" width="114" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mismatch Penalty" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1WO-w0-olr">
+                                <rect key="frame" x="20" y="95" width="137" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Match Bonus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CnH-Zc-Ltu">
+                                <rect key="frame" x="20" y="146" width="103" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Set Match Bonus" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4c-Ho-6rB">
+                                <rect key="frame" x="20" y="204" width="133" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Cost To Choose" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MRO-tl-ovG">
+                                <rect key="frame" x="20" y="257" width="123" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7oa-1N-cOz">
+                                <rect key="frame" x="175" y="248" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="changeCostToChoose:" destination="bOj-SA-I7H" eventType="editingDidEnd" id="Uq4-6P-Nhc"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.12903553093695019" green="0.60171614422725583" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="K3k-MP-9ad"/>
+                    <connections>
+                        <outlet property="costToChooseField" destination="7oa-1N-cOz" id="dlE-gl-my0"/>
+                        <outlet property="matchBonusField" destination="J3M-yU-D9X" id="rlh-ve-9kY"/>
+                        <outlet property="misMatchPenaltyField" destination="0If-gs-8Gc" id="Ui1-Vq-GM4"/>
+                        <outlet property="setMatchBonusField" destination="Dzr-JU-QJL" id="5J0-eN-cbr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pYf-JX-xjI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-157" y="918"/>
+        </scene>
         <!--Set Card Game View Controller - Set Card Game-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -98,7 +192,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="305" y="655"/>
+            <point key="canvasLocation" x="305" y="700"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6li-wn-VIp">
@@ -113,6 +207,8 @@
                     <connections>
                         <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="Ovx-0B-v42"/>
                         <segue destination="tdz-uS-mDR" kind="relationship" relationship="viewControllers" id="Ucq-U7-ZSM"/>
+                        <segue destination="GTS-ci-XR0" kind="relationship" relationship="viewControllers" id="nT5-gf-sKx"/>
+                        <segue destination="bOj-SA-I7H" kind="relationship" relationship="viewControllers" id="Z0u-ho-trm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GV7-CK-93t" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,6 +339,102 @@
                 </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="41"/>
+        </scene>
+        <!--Two Player Set Card Game View Controller - Set Card Game-->
+        <scene sceneID="EB0-H4-a81">
+            <objects>
+                <viewController title="Set Card Game" id="GTS-ci-XR0" customClass="TwoPlayerSetCardGameViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WBg-ml-YeN"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jyx-nb-Bh8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HLJ-2B-voF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6x-17-d5a">
+                                <rect key="frame" x="14" y="399" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ws5-vz-2lV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5I-3H-eWV">
+                                <rect key="frame" x="241" y="390" width="59" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="59" id="OvT-Th-BQY"/>
+                                </constraints>
+                                <state key="normal" title="Re-deal" backgroundImage="cardfront">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchReDealButton:" destination="GTS-ci-XR0" eventType="touchUpInside" id="jYd-pn-u9B"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geJ-tq-xO9">
+                                <rect key="frame" x="0.0" y="20" width="320" height="343"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JjQ-VS-ZQQ" appends="YES" id="EZ5-Ie-u3j"/>
+                                    <outletCollection property="gestureRecognizers" destination="oBz-Ne-6rm" appends="YES" id="fIh-nA-xn8"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyZ-Ez-DlQ">
+                                <rect key="frame" x="122" y="390" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Cards" backgroundImage="cardfront">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchAddNewCards:" destination="GTS-ci-XR0" eventType="touchUpInside" id="2TY-vy-dod"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Jyx-nb-Bh8" firstAttribute="top" secondItem="b6x-17-d5a" secondAttribute="bottom" constant="11" id="3e0-9P-3Ca"/>
+                            <constraint firstItem="b6x-17-d5a" firstAttribute="bottom" secondItem="iyZ-Ez-DlQ" secondAttribute="bottom" id="4Nn-gS-KIg"/>
+                            <constraint firstItem="geJ-tq-xO9" firstAttribute="centerX" secondItem="iyZ-Ez-DlQ" secondAttribute="centerX" id="5DE-OD-Db9"/>
+                            <constraint firstAttribute="trailing" secondItem="b6x-17-d5a" secondAttribute="trailing" constant="26" id="5Ph-Zv-dqu"/>
+                            <constraint firstItem="iyZ-Ez-DlQ" firstAttribute="top" secondItem="geJ-tq-xO9" secondAttribute="bottom" constant="27" id="8N8-S8-hJO"/>
+                            <constraint firstItem="geJ-tq-xO9" firstAttribute="top" secondItem="HLJ-2B-voF" secondAttribute="top" constant="20" symbolic="YES" id="AvP-qg-YSY"/>
+                            <constraint firstItem="geJ-tq-xO9" firstAttribute="leading" secondItem="HLJ-2B-voF" secondAttribute="leading" id="Gia-Tg-rz2"/>
+                            <constraint firstItem="b6x-17-d5a" firstAttribute="top" secondItem="geJ-tq-xO9" secondAttribute="bottom" constant="36" id="Mw2-FW-og7"/>
+                            <constraint firstItem="iyZ-Ez-DlQ" firstAttribute="top" secondItem="s5I-3H-eWV" secondAttribute="top" id="TaZ-TI-08T"/>
+                            <constraint firstItem="iyZ-Ez-DlQ" firstAttribute="bottom" secondItem="s5I-3H-eWV" secondAttribute="bottom" id="XzT-d4-2y6"/>
+                            <constraint firstItem="b6x-17-d5a" firstAttribute="leading" secondItem="HLJ-2B-voF" secondAttribute="leading" constant="14" id="cOu-OX-3Z1"/>
+                            <constraint firstAttribute="trailing" secondItem="geJ-tq-xO9" secondAttribute="trailing" id="eB5-9G-ue8"/>
+                            <constraint firstAttribute="trailing" secondItem="s5I-3H-eWV" secondAttribute="trailing" constant="20" symbolic="YES" id="rod-n0-zXP"/>
+                            <constraint firstItem="s5I-3H-eWV" firstAttribute="leading" secondItem="iyZ-Ez-DlQ" secondAttribute="trailing" constant="43" id="yhj-ud-1Bd"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <tabBarItem key="tabBarItem" title="SetCardGame" image="seticon" id="2em-Be-ziQ"/>
+                    <connections>
+                        <outlet property="addCardsButton" destination="iyZ-Ez-DlQ" id="9ka-7w-YHv"/>
+                        <outlet property="gridView" destination="geJ-tq-xO9" id="vzs-AS-BQg"/>
+                        <outlet property="scoreLabel" destination="b6x-17-d5a" id="uPR-ax-4cw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eot-F4-bst" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="JjQ-VS-ZQQ">
+                    <connections>
+                        <action selector="gatherCardsIntoPile:" destination="GTS-ci-XR0" id="7tV-sf-uIc"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="oBz-Ne-6rm">
+                    <connections>
+                        <action selector="panPile:" destination="GTS-ci-XR0" id="42e-vz-z4b"/>
+                    </connections>
+                </panGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="782" y="328"/>
         </scene>
     </scenes>
     <resources>

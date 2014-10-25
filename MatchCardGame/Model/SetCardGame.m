@@ -9,6 +9,7 @@
 #import "SetCardGame.h"
 #import "SetCard.h"
 #import "SetCardDeck.h"
+#import "GameSettings.h"
 @interface SetCardGame()
 @property (nonatomic, readwrite) NSUInteger score;
 @property (nonatomic, strong) Deck *deck;
@@ -88,7 +89,7 @@
                     
                     self.matched = YES;
                     
-                    self.score += 10;
+                    self.score += [GameSettings instance].set_match_bonus;
                 }
                 else self.matched = NO;
             

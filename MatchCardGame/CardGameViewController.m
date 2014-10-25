@@ -72,6 +72,7 @@
         sender.enabled = NO;
     }
     self.animators = nil;
+    
     [self updateUI];
 }
 
