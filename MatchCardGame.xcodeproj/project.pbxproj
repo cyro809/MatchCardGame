@@ -38,6 +38,7 @@
 		D6BF2F2F19FBF8D1003074F0 /* GameSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2E19FBF8D1003074F0 /* GameSettingsViewController.m */; };
 		D6BF2F3219FC152B003074F0 /* GameRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F3119FC152B003074F0 /* GameRecords.m */; };
 		D6BF2F3819FC1E45003074F0 /* GameRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */; };
+		D6BF2F3B19FC3439003074F0 /* TwoPlayersSetCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F3A19FC3439003074F0 /* TwoPlayersSetCardGameViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,8 @@
 		D6BF2F3119FC152B003074F0 /* GameRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameRecords.m; path = Model/GameRecords.m; sourceTree = "<group>"; };
 		D6BF2F3619FC1E45003074F0 /* GameRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRecordsViewController.h; sourceTree = "<group>"; };
 		D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRecordsViewController.m; sourceTree = "<group>"; };
+		D6BF2F3919FC3439003074F0 /* TwoPlayersSetCardGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPlayersSetCardGameViewController.h; sourceTree = "<group>"; };
+		D6BF2F3A19FC3439003074F0 /* TwoPlayersSetCardGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwoPlayersSetCardGameViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 		D61C77B419B09AC10063F1C7 /* MatchCardGame */ = {
 			isa = PBXGroup;
 			children = (
+				D6BF2F3919FC3439003074F0 /* TwoPlayersSetCardGameViewController.h */,
+				D6BF2F3A19FC3439003074F0 /* TwoPlayersSetCardGameViewController.m */,
 				D6BF2F3619FC1E45003074F0 /* GameRecordsViewController.h */,
 				D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */,
 				D6BF2F2419F40F81003074F0 /* SetCardView.h */,
@@ -353,6 +358,7 @@
 				D6BF2F3819FC1E45003074F0 /* GameRecordsViewController.m in Sources */,
 				D6300EA219E34EE6004C21F2 /* SetCardDeck.m in Sources */,
 				D61C77E919B0AADF0063F1C7 /* PlayingCard.m in Sources */,
+				D6BF2F3B19FC3439003074F0 /* TwoPlayersSetCardGameViewController.m in Sources */,
 				D6300E9F19E2BA48004C21F2 /* SetCard.m in Sources */,
 				D6BF2F2019F3534D003074F0 /* SuperCardGameViewController.m in Sources */,
 				D6BF2F3219FC152B003074F0 /* GameRecords.m in Sources */,

@@ -228,11 +228,8 @@ static const double CARDSPACINGINPERCENT = 0.08;
     return record;
 }
 
-- (IBAction)touchReDealButton:(UIButton *)sender {
-    self.gameFinishTime = [NSDate date];
-    
-    [[GameRecords instance] saveCurrentGame:[self saveRecord]];
-    
+- (void)animateDealingCards
+{
     for (UIView *subView in self.cardViews) {
         [UIView animateWithDuration:0.5
                          animations:^{
@@ -244,6 +241,15 @@ static const double CARDSPACINGINPERCENT = 0.08;
                              [subView removeFromSuperview];
                          }];
     }
+}
+
+- (IBAction)touchReDealButton:(UIButton *)sender {
+    self.gameFinishTime = [NSDate date];
+    
+    [[GameRecords instance] saveCurrentGame:[self saveRecord]];
+    
+    [self animateDealingCards];
+    
     self.gameStartTime = [NSDate date];
     self.animators = nil;
     self.game = nil;
@@ -276,7 +282,9 @@ static const double CARDSPACINGINPERCENT = 0.08;
     [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 }
 
-#define RESISTANCE_TO_PILING 40.0
+
+
+
 - (IBAction)gatherCardsIntoPile:(UIPinchGestureRecognizer *)gesture {
     if ((gesture.state == UIGestureRecognizerStateChanged) ||
         (gesture.state == UIGestureRecognizerStateEnded)) {
@@ -284,7 +292,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
             CGPoint center = [gesture locationInView:self.gridView];
             self.animators = [[UIDynamicAnimator alloc] initWithReferenceView:self.gridView];
             UIDynamicItemBehavior *item = [[UIDynamicItemBehavior alloc] initWithItems:self.cardViews];
-            item.resistance = RESISTANCE_TO_PILING;
+            item.resistance = 30;
             [self.animators addBehavior:item];
             for (UIView *cardView in self.cardViews) {
                 UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView snapToPoint:center];

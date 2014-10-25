@@ -20,6 +20,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.gameType = @"SET GAME";
     // Do any additional setup after loading the view.
 }
 
