@@ -194,6 +194,25 @@
             </objects>
             <point key="canvasLocation" x="305" y="700"/>
         </scene>
+        <!--View Controller - Item-->
+        <scene sceneID="YYx-yA-YmR">
+            <objects>
+                <viewController id="wAh-xC-GcJ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xr3-CS-yyi"/>
+                        <viewControllerLayoutGuide type="bottom" id="a0I-oL-Ene"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="WNF-6b-6UM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="CgD-ue-lCa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ENU-aO-heh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-231" y="-255"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6li-wn-VIp">
             <objects>
@@ -209,6 +228,7 @@
                         <segue destination="tdz-uS-mDR" kind="relationship" relationship="viewControllers" id="Ucq-U7-ZSM"/>
                         <segue destination="GTS-ci-XR0" kind="relationship" relationship="viewControllers" id="nT5-gf-sKx"/>
                         <segue destination="bOj-SA-I7H" kind="relationship" relationship="viewControllers" id="Z0u-ho-trm"/>
+                        <segue destination="wAh-xC-GcJ" kind="relationship" relationship="viewControllers" id="iBp-aV-s6w"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GV7-CK-93t" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -415,7 +435,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="SetCardGame" image="seticon" id="2em-Be-ziQ"/>
+                    <tabBarItem key="tabBarItem" title="Two Player Set" image="seticon" id="2em-Be-ziQ"/>
                     <connections>
                         <outlet property="addCardsButton" destination="iyZ-Ez-DlQ" id="9ka-7w-YHv"/>
                         <outlet property="gridView" destination="geJ-tq-xO9" id="vzs-AS-BQg"/>

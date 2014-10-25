@@ -37,6 +37,8 @@
 		D6BF2F2919FBE662003074F0 /* TwoPlayersSetCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2819FBE662003074F0 /* TwoPlayersSetCardGameViewController.m */; };
 		D6BF2F2C19FBF16B003074F0 /* GameSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2B19FBF16B003074F0 /* GameSettings.m */; };
 		D6BF2F2F19FBF8D1003074F0 /* GameSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F2E19FBF8D1003074F0 /* GameSettingsViewController.m */; };
+		D6BF2F3219FC152B003074F0 /* GameRecords.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F3119FC152B003074F0 /* GameRecords.m */; };
+		D6BF2F3819FC1E45003074F0 /* GameRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,10 @@
 		D6BF2F2B19FBF16B003074F0 /* GameSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameSettings.m; path = Model/GameSettings.m; sourceTree = "<group>"; };
 		D6BF2F2D19FBF8D1003074F0 /* GameSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettingsViewController.h; sourceTree = "<group>"; };
 		D6BF2F2E19FBF8D1003074F0 /* GameSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettingsViewController.m; sourceTree = "<group>"; };
+		D6BF2F3019FC152B003074F0 /* GameRecords.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameRecords.h; path = Model/GameRecords.h; sourceTree = "<group>"; };
+		D6BF2F3119FC152B003074F0 /* GameRecords.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameRecords.m; path = Model/GameRecords.m; sourceTree = "<group>"; };
+		D6BF2F3619FC1E45003074F0 /* GameRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRecordsViewController.h; sourceTree = "<group>"; };
+		D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRecordsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +166,8 @@
 		D61C77B419B09AC10063F1C7 /* MatchCardGame */ = {
 			isa = PBXGroup;
 			children = (
+				D6BF2F3619FC1E45003074F0 /* GameRecordsViewController.h */,
+				D6BF2F3719FC1E45003074F0 /* GameRecordsViewController.m */,
 				D6BF2F2419F40F81003074F0 /* SetCardView.h */,
 				D6BF2F2D19FBF8D1003074F0 /* GameSettingsViewController.h */,
 				D6BF2F2E19FBF8D1003074F0 /* GameSettingsViewController.m */,
@@ -218,6 +226,8 @@
 		D61C77E619B0A8F30063F1C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D6BF2F3019FC152B003074F0 /* GameRecords.h */,
+				D6BF2F3119FC152B003074F0 /* GameRecords.m */,
 				D61C77E319B0A8B80063F1C7 /* Card.h */,
 				D61C77E419B0A8B80063F1C7 /* Card.m */,
 				D681F6E019B20DED007F4E47 /* CardMatchingGame.h */,
@@ -345,11 +355,13 @@
 				D61C77BB19B09AC10063F1C7 /* main.m in Sources */,
 				D6BF2F0E19F32992003074F0 /* PlayingCardView.m in Sources */,
 				D6BF2F2F19FBF8D1003074F0 /* GameSettingsViewController.m in Sources */,
+				D6BF2F3819FC1E45003074F0 /* GameRecordsViewController.m in Sources */,
 				D6BF2F2919FBE662003074F0 /* TwoPlayersSetCardGameViewController.m in Sources */,
 				D6300EA219E34EE6004C21F2 /* SetCardDeck.m in Sources */,
 				D61C77E919B0AADF0063F1C7 /* PlayingCard.m in Sources */,
 				D6300E9F19E2BA48004C21F2 /* SetCard.m in Sources */,
 				D6BF2F2019F3534D003074F0 /* SuperCardGameViewController.m in Sources */,
+				D6BF2F3219FC152B003074F0 /* GameRecords.m in Sources */,
 				D6BF2F2619F40F81003074F0 /* SetCardView.m in Sources */,
 				D681F6E219B20DED007F4E47 /* CardMatchingGame.m in Sources */,
 				D6BF2F2319F3E3B3003074F0 /* Grid.m in Sources */,

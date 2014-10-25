@@ -12,6 +12,7 @@
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
 #import "Grid.h"
+#import "GameRecords.h"
 
 @interface CardGameViewController ()
 
@@ -48,7 +49,6 @@
     }
     return _grid;
 }
-
 
 - (CardMatchingGame *)game
 {
@@ -216,19 +216,22 @@ static const double CARDSPACINGINPERCENT = 0.08;
     
 }
 
+-(NSDictionary *)saveRecord
+{
+    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
+    NSDictionary *record = @{@"gameType":self.gameType,
+                             @"gameStartTime":self.gameStartTime,
+                             @"gameFinishTime":self.gameFinishTime,
+                             @"gameScore":[NSNumber numberWithInt:self.game.score],
+                             @"gameDuration":[NSNumber numberWithDouble:gameDurationTime]};
+    
+    return record;
+}
 
 - (IBAction)touchReDealButton:(UIButton *)sender {
     self.gameFinishTime = [NSDate date];
-    NSLog(@"Finish: %@", self.gameFinishTime);
     
-    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
-    
-    self.gameRecord = [NSUserDefaults standardUserDefaults];
-    [self.gameRecord setObject:self.gameType forKey:@"gameType"];
-    [self.gameRecord setObject:self.gameStartTime forKey:@"gameStartTime"];
-    [self.gameRecord setObject:self.gameFinishTime forKey:@"gameFinishTime"];
-    [self.gameRecord setDouble:gameDurationTime forKey:@"gameDurationTime"];
-    [self.gameRecord setInteger:[self.game score] forKey:@"gameScore"];
+    [[GameRecords instance] saveCurrentGame:[self saveRecord]];
     
     for (UIView *subView in self.cardViews) {
         [UIView animateWithDuration:0.5
