@@ -218,7 +218,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
 
 -(NSDictionary *)saveRecord
 {
-    NSTimeInterval gameDurationTime = [self.gameStartTime timeIntervalSinceDate:self.gameFinishTime];
+    NSTimeInterval gameDurationTime = [self.gameFinishTime timeIntervalSinceDate:self.gameStartTime];
     NSDictionary *record = @{@"gameType":self.gameType,
                              @"gameStartTime":self.gameStartTime,
                              @"gameFinishTime":self.gameFinishTime,
@@ -244,6 +244,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
                              [subView removeFromSuperview];
                          }];
     }
+    self.gameStartTime = [NSDate date];
     self.animators = nil;
     self.game = nil;
     self.cardViews = nil;
@@ -270,6 +271,8 @@ static const double CARDSPACINGINPERCENT = 0.08;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.gameType = @"None";
+    self.gameStartTime = [NSDate date];
     [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 }
 

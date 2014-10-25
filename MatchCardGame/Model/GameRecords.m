@@ -32,6 +32,7 @@
     [self.allRecords addObject:gameData];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:self.allRecords forKey:@"allRecords"];
+    [userDefaults synchronize];
 }
 
 @end
