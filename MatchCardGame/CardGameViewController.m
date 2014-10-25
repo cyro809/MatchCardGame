@@ -24,6 +24,8 @@
 @property (strong, nonatomic) Grid *grid;
 @property (strong, nonatomic) NSMutableArray *cardViews;
 @property (weak, nonatomic) IBOutlet UIView *gridView;
+
+@property (strong, nonatomic) UIDynamicAnimator *animators;
 @end
 
 @implementation CardGameViewController
@@ -63,15 +65,13 @@
 }
 
 - (IBAction)touchAddNewCards:(UIButton *)sender {
-    NSLog(@"ADICIONA PORRA!!!!!!!!!!!!!");
-    NSLog(@"Sender tag: %d", sender.tag);
     for (int i = 0; i < sender.tag; i++) {
-        NSLog(@"TAG: %d", i);
         [self.game drawNewCard];
     }
     if ([self.game isDeckEmpty]) {
         sender.enabled = NO;
     }
+    self.animators = nil;
     [self updateUI];
 }
 
@@ -99,7 +99,7 @@ static const double FLIPTRANSITIONDURATION = 0.5;
 - (void)flipTransition:(UIGestureRecognizer *)gesture
 {
     Card *card = [self.game cardAtIndex:gesture.view.tag];
-    if (!card.isMatched) {
+    if (!card.isMatched && !self.animators) {
         [UIView transitionWithView:gesture.view
                           duration:FLIPTRANSITIONDURATION
                            options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
@@ -240,10 +240,11 @@ static const double CARDSPACINGINPERCENT = 0.08;
                              [subView removeFromSuperview];
                          }];
     }
-    
+    self.animators = nil;
     self.game = nil;
     self.cardViews = nil;
     self.grid = nil;
+    
     [self updateUI];
     
     self.scoreLabel.text = @"Score: 0";
@@ -257,6 +258,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    self.animators = nil;
     self.grid.size = self.gridView.bounds.size;
     [self updateUI];
 }
@@ -266,5 +268,59 @@ static const double CARDSPACINGINPERCENT = 0.08;
     [super viewDidLoad];
     [self.view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
 }
+
+#define RESISTANCE_TO_PILING 40.0
+- (IBAction)gatherCardsIntoPile:(UIPinchGestureRecognizer *)gesture {
+    if ((gesture.state == UIGestureRecognizerStateChanged) ||
+        (gesture.state == UIGestureRecognizerStateEnded)) {
+        if (!self.animators) {
+            CGPoint center = [gesture locationInView:self.gridView];
+            self.animators = [[UIDynamicAnimator alloc] initWithReferenceView:self.gridView];
+            UIDynamicItemBehavior *item = [[UIDynamicItemBehavior alloc] initWithItems:self.cardViews];
+            item.resistance = RESISTANCE_TO_PILING;
+            [self.animators addBehavior:item];
+            for (UIView *cardView in self.cardViews) {
+                UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView snapToPoint:center];
+                [self.animators addBehavior:snap];
+            }
+        }
+    }
+}
+
+- (IBAction)panPile:(UIPanGestureRecognizer *)gesture {
+    if (self.animators) {
+        CGPoint gesturePoint = [gesture locationInView:self.gridView];
+        if (gesture.state == UIGestureRecognizerStateBegan) {
+            for (UIView *cardView in self.cardViews) {
+                UIAttachmentBehavior *attachment = [[UIAttachmentBehavior alloc] initWithItem:cardView
+                                                                             attachedToAnchor:gesturePoint];
+                [self.animators addBehavior:attachment];
+            }
+            for (UIDynamicBehavior *behaviour in self.animators.behaviors) {
+                if ([behaviour isKindOfClass:[UISnapBehavior class]]) {
+                    [self.animators removeBehavior:behaviour];
+                }
+            }
+        } else if (gesture.state == UIGestureRecognizerStateChanged) {
+            for (UIDynamicBehavior *behaviour in self.animators.behaviors) {
+                if ([behaviour isKindOfClass:[UIAttachmentBehavior class]]) {
+                    ((UIAttachmentBehavior *)behaviour).anchorPoint = gesturePoint;
+                }
+            }
+        } else if (gesture.state == UIGestureRecognizerStateEnded) {
+            for (UIDynamicBehavior *behaviour in self.animators.behaviors) {
+                if ([behaviour isKindOfClass:[UIAttachmentBehavior class]]) {
+                    [self.animators removeBehavior:behaviour];
+                }
+            }
+            for (UIView *cardView in self.cardViews) {
+                UISnapBehavior *snap = [[UISnapBehavior alloc] initWithItem:cardView snapToPoint:gesturePoint];
+                [self.animators addBehavior:snap];
+            }
+        }
+    }
+}
+
+
 
 @end

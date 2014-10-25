@@ -43,6 +43,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="2L5-WO-5zO" appends="YES" id="07p-Ku-XEp"/>
+                                    <outletCollection property="gestureRecognizers" destination="3pI-mq-HdO" appends="YES" id="EAW-qa-72c"/>
+                                </connections>
                             </view>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Luh-zZ-Tji">
                                 <rect key="frame" x="122" y="390" width="76" height="30"/>
@@ -82,6 +87,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="2L5-WO-5zO">
+                    <connections>
+                        <action selector="gatherCardsIntoPile:" destination="vXZ-lx-hvc" id="mvW-dc-7Fk"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="3pI-mq-HdO">
+                    <connections>
+                        <action selector="panPile:" destination="vXZ-lx-hvc" id="tRP-6i-GBR"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="655"/>
         </scene>
@@ -164,6 +179,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="BiG-0p-F2e" appends="YES" id="ozj-Bn-bkZ"/>
+                                    <outletCollection property="gestureRecognizers" destination="uOF-Tx-XSD" appends="YES" id="Y6v-Fq-G6R"/>
+                                </connections>
                             </view>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2za-yZ-Gsr">
                                 <rect key="frame" x="20" y="398" width="75" height="30"/>
@@ -211,6 +231,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CI3-oR-jBw" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="BiG-0p-F2e">
+                    <connections>
+                        <action selector="gatherCardsIntoPile:" destination="tdz-uS-mDR" id="NnI-hK-4dt"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="uOF-Tx-XSD">
+                    <connections>
+                        <action selector="panPile:" destination="tdz-uS-mDR" id="QlA-Dc-AzI"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="305" y="41"/>
         </scene>
