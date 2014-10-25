@@ -195,7 +195,7 @@ static const double CARDSPACINGINPERCENT = 0.08;
                              } completion:NULL];
         }
     }
-    
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 #define FRAMEROUNDINGERROR 0.01
