@@ -1,9 +1,9 @@
 //
 //  SetCardView.m
-//  Matchismo
+//  MatchCardGame
 //
-//  Created by Martin Mandl on 29.11.13.
-//  Copyright (c) 2013 m2m server software gmbh. All rights reserved.
+//  Created by Cyro Guimaraes on 10/6/14.
+//  Copyright (c) 2014 MAB604. All rights reserved.
 //
 
 #import "SetCardView.h"
@@ -89,14 +89,6 @@
         [self drawSymbolAtPoint:CGPointMake(point.x + dx, point.y)];
         return;
     }
-}
-
-- (UIColor *)uiColor
-{
-    //if ([self.color isEqualToString:@"red"]) return [UIColor redColor];
-    //if ([self.color isEqualToString:@"green"]) return [UIColor greenColor];
-    //if ([self.color isEqualToString:@"purple"]) return [UIColor purpleColor];
-    return nil;
 }
 
 - (void)drawSymbolAtPoint:(CGPoint)point

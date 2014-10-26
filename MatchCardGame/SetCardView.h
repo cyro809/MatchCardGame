@@ -1,9 +1,9 @@
 //
 //  SetCardView.h
-//  Matchismo
+//  MatchCardGame
 //
-//  Created by Martin Mandl on 29.11.13.
-//  Copyright (c) 2013 m2m server software gmbh. All rights reserved.
+//  Created by Cyro Guimaraes on 10/6/14.
+//  Copyright (c) 2014 MAB604. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
