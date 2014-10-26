@@ -112,6 +112,10 @@ static const double FLIPTRANSITIONDURATION = 0.5;
                                [self updateUI];
                            }];
     }
+    else if (self.animators) {
+        self.animators = nil;
+        [self updateUI];
+    }
     
 }
 
