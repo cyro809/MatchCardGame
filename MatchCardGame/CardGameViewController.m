@@ -31,6 +31,10 @@
 
 @implementation CardGameViewController
 
+static const double ANIMATIONDURATION = 0.5;
+static const double CARDSPACING = 0.1;
+static const double FRAMEROUNDINGERROR = 0.01;
+
 - (NSMutableArray *)cardViews
 {
     if (!_cardViews) _cardViews = [NSMutableArray arrayWithCapacity:self.numberOfStartingCards];
@@ -59,7 +63,7 @@
     return _game;
 }
 
-- (Deck *)createDeck // abstract
+- (Deck *)createDeck
 {
     return nil;
 }
@@ -95,14 +99,14 @@
     }
 }
 
-static const double FLIPTRANSITIONDURATION = 0.5;
+
 
 - (void)flipTransition:(UIGestureRecognizer *)gesture
 {
     Card *card = [self.game cardAtIndex:gesture.view.tag];
     if (!card.isMatched && !self.animators) {
         [UIView transitionWithView:gesture.view
-                          duration:FLIPTRANSITIONDURATION
+                          duration:ANIMATIONDURATION
                            options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
                                card.chosen = !card.chosen;
                                [self updateView:gesture.view forCard:card];
@@ -126,7 +130,29 @@ static const double FLIPTRANSITIONDURATION = 0.5;
     }
 }
 
-static const double CARDSPACINGINPERCENT = 0.08;
+
+
+- (void)updateGrid
+{
+    self.grid.minimumNumberOfCells = [self.cardViews count];
+    
+    NSUInteger changedViews = 0;
+    for (NSUInteger viewIndex = 0; viewIndex < [self.cardViews count]; viewIndex++) {
+        CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
+                                          inColumn:viewIndex % self.grid.columnCount];
+        frame = CGRectInset(frame, frame.size.width * CARDSPACING, frame.size.height * CARDSPACING);
+        UIView *cardView = (UIView *)self.cardViews[viewIndex];
+        if (![self frame:frame equalToFrame:cardView.frame]) {
+            [UIView animateWithDuration:ANIMATIONDURATION
+                                  delay:1.5 * changedViews++ / [self.cardViews count]
+                                options:UIViewAnimationOptionCurveEaseInOut
+                             animations:^{
+                                 cardView.frame = frame;
+                             } completion:NULL];
+        }
+    }
+}
+
 
 - (void)updateUI
 {
@@ -183,27 +209,12 @@ static const double CARDSPACINGINPERCENT = 0.08;
         }
     }
     
-    self.grid.minimumNumberOfCells = [self.cardViews count];
+    [self updateGrid];
     
-    NSUInteger changedViews = 0;
-    for (NSUInteger viewIndex = 0; viewIndex < [self.cardViews count]; viewIndex++) {
-        CGRect frame = [self.grid frameOfCellAtRow:viewIndex / self.grid.columnCount
-                                          inColumn:viewIndex % self.grid.columnCount];
-        frame = CGRectInset(frame, frame.size.width * CARDSPACINGINPERCENT, frame.size.height * CARDSPACINGINPERCENT);
-        UIView *cardView = (UIView *)self.cardViews[viewIndex];
-        if (![self frame:frame equalToFrame:cardView.frame]) {
-            [UIView animateWithDuration:0.5
-                                  delay:1.5 * changedViews++ / [self.cardViews count]
-                                options:UIViewAnimationOptionCurveEaseInOut
-                             animations:^{
-                                 cardView.frame = frame;
-                             } completion:NULL];
-        }
-    }
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
-#define FRAMEROUNDINGERROR 0.01
+
 
 - (BOOL)frame:(CGRect)frame1 equalToFrame:(CGRect)frame2
 {
