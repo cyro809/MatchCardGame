@@ -8,49 +8,128 @@
 
 #import "SetCardView.h"
 
+@interface SetCardView ()
+@property (nonatomic) float shapeHeight;
+@property (nonatomic) float shapeWidth;
+@end
+
 @implementation SetCardView
 
-#pragma mark - Properties
+#define SHAPE_WIDTH_RATIO 0.7
+#define SHAPE_HEIGHT_RATIO 0.2
 
-- (void)setColor:(UIColor *)color
+-(float)shapeHeight
 {
-    _color = color;
-    [self setNeedsDisplay];
+    return self.bounds.size.height * SHAPE_HEIGHT_RATIO;
 }
 
-- (void)setSymbol:(NSString *)shape
+-(float)shapeWidth
 {
-    _shape = shape;
-    [self setNeedsDisplay];
+    return self.bounds.size.width * SHAPE_WIDTH_RATIO;
 }
 
-- (void)setShading:(NSString *)shading
-{
-    _shading = shading;
-    [self setNeedsDisplay];
-}
 
-- (void)setNumber:(NSUInteger)numOfShapes
-{
-    _numOfShapes = numOfShapes;
-    [self setNeedsDisplay];
-}
 
-- (void)setChosen:(BOOL)chosen
-{
-    _chosen = chosen;
-    [self setNeedsDisplay];
-}
-
-#pragma mark - Drawing
-
-#define CORNER_RADIUS 0.1
 - (void)drawRect:(CGRect)rect
 {
-    UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                           cornerRadius:self.bounds.size.width * CORNER_RADIUS];
-    [roundedRect addClip];
+    [self drawCardBackground];
+    
+    for (int i = 1; i <= self.numOfShapes; i++) {
+        
+        float y = self.bounds.size.height / (self.numOfShapes + 1);
+        
+        y *= i;
+        
+        [self pushContextAndMoveCenterTo:CGPointMake(self.bounds.size.width / 2, y)];
+        
+        if ([self.shape  isEqual: @"diamond"])
+            [self drawDiamonds];
+        else if ([self.shape  isEqual: @"oval"])
+            [self drawOvals];
+        else
+            [self drawSquiggles];
+        
+        [self popContext];
+    }
+}
 
+-(void)drawOvals
+{
+    CGRect rect = CGRectMake(-self.shapeWidth/2, -self.shapeHeight/2, self.shapeWidth, self.shapeHeight);
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:rect];
+    [self colorAndDraw:path];
+}
+
+-(void)drawSquiggles
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    CGPoint upperLeft = CGPointMake(-self.shapeWidth/2, -(self.shapeHeight / 2) + self.shapeHeight / 5);
+    [path moveToPoint:upperLeft];
+    
+    CGPoint upperRight = CGPointMake(self.shapeWidth/2, -(self.shapeHeight / 2));
+    CGPoint cp1 = CGPointMake(0, -self.shapeHeight/1.5);
+    CGPoint cp2 = CGPointMake(0, 0);
+    [path addCurveToPoint:upperRight controlPoint1:cp1 controlPoint2:cp2];
+    
+    CGPoint lowerRight = CGPointMake(self.shapeWidth/2, (self.shapeHeight / 2) - self.shapeHeight / 5);
+    CGPoint cp3 = CGPointMake(self.shapeWidth/1.5, 0);
+    [path addQuadCurveToPoint:lowerRight controlPoint:cp3];
+    
+    CGPoint lowerLeft = CGPointMake(-self.shapeWidth/2, (self.shapeHeight / 2));
+    CGPoint cp4 = CGPointMake(0, self.shapeHeight/1.5);
+    CGPoint cp5 = CGPointMake(0, 0);
+    [path addCurveToPoint:lowerLeft controlPoint1:cp4 controlPoint2:cp5];
+    
+    CGPoint cp6 = CGPointMake(-self.shapeWidth/1.5, 0);
+    [path addQuadCurveToPoint:upperLeft controlPoint:cp6];
+    
+    [self colorAndDraw:path];
+}
+
+-(void)drawDiamonds
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    
+    [path moveToPoint:CGPointMake(0, -(self.shapeHeight / 2))];
+    [path addLineToPoint:CGPointMake(self.shapeWidth / 2, 0)];
+    [path addLineToPoint:CGPointMake(0, self.shapeHeight / 2)];
+    [path addLineToPoint:CGPointMake(- (self.shapeWidth / 2), 0)];
+    [path closePath];
+    
+    [self colorAndDraw:path];
+}
+
+#define NUMBER_LINES 10
+
+-(void)colorAndDraw:(UIBezierPath*)path
+{
+    if ([self.shading  isEqual: @"solid"]) {
+        [self.color setFill];
+        [path fill];
+    }
+    
+    [path addClip]; // allow us to draw stripes without having to care about bounds
+    
+    [self.color setStroke];
+    [path stroke];
+    
+    path.lineWidth = 0.3;
+    if ([self.shading  isEqual: @"striped"]) {
+        for (int i = 0; i <= NUMBER_LINES; i++) {
+            [path moveToPoint:CGPointMake(-self.shapeWidth/2 + self.shapeWidth / NUMBER_LINES * i, -self.shapeHeight/2)];
+            [path addLineToPoint:CGPointMake(-self.shapeWidth/2 + self.shapeWidth / NUMBER_LINES * i, self.shapeHeight/2)];
+        }
+        [path stroke];
+    }
+}
+
+-(void)drawCardBackground
+{
+    UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                           cornerRadius:self.bounds.size.width * 0.1];
+    [roundedRect addClip];
+    
     [[UIColor whiteColor] setFill];
     UIRectFill(self.bounds);
     
@@ -62,140 +141,23 @@
         roundedRect.lineWidth /= 2.0;
     }
     [roundedRect stroke];
-    
-    [self drawSymbols];
 }
 
-#define SYMBOL_OFFSET 0.2;
-#define SYMBOL_LINE_WIDTH 0.02;
-
-- (void)drawSymbols
+- (void)pushContextAndMoveCenterTo:(CGPoint)point
 {
-    [[self color] setStroke];
-    CGPoint point = CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0);
-    if (self.numOfShapes == 1) {
-        [self drawSymbolAtPoint:point];
-        return;
-    }
-    CGFloat dx = self.bounds.size.width * SYMBOL_OFFSET;
-    if (self.numOfShapes == 2) {
-        [self drawSymbolAtPoint:CGPointMake(point.x - dx / 2.0, point.y)];
-        [self drawSymbolAtPoint:CGPointMake(point.x + dx / 2.0, point.y)];
-        return;
-    }
-    if (self.numOfShapes == 3) {
-        [self drawSymbolAtPoint:point];
-        [self drawSymbolAtPoint:CGPointMake(point.x - dx, point.y)];
-        [self drawSymbolAtPoint:CGPointMake(point.x + dx, point.y)];
-        return;
-    }
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, point.x, point.y);
 }
 
-- (void)drawSymbolAtPoint:(CGPoint)point
+- (void)popContext
 {
-    if ([self.shape isEqualToString:@"oval"]) [self drawOvalAtPoint:point];
-    else if ([self.shape isEqualToString:@"squiggle"]) [self drawSquiggleAtPoint:point];
-    else if ([self.shape isEqualToString:@"diamond"]) [self drawDiamondAtPoint:point];
+    CGContextRestoreGState(UIGraphicsGetCurrentContext());
 }
-
-#define OVAL_WIDTH 0.12
-#define OVAL_HEIGHT 0.4
-
-- (void)drawOvalAtPoint:(CGPoint)point;
-{
-    CGFloat dx = self.bounds.size.width * OVAL_WIDTH / 2.0;
-    CGFloat dy = self.bounds.size.height * OVAL_HEIGHT / 2.0;
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(point.x - dx, point.y - dy, 2.0 * dx, 2.0 * dy)
-                                                    cornerRadius:dx];
-    path.lineWidth = self.bounds.size.width * SYMBOL_LINE_WIDTH;
-    [self shadePath:path];
-    [path stroke];
-}
-
-#define SQUIGGLE_WIDTH 0.12
-#define SQUIGGLE_HEIGHT 0.3
-#define SQUIGGLE_FACTOR 0.8
-
-- (void)drawSquiggleAtPoint:(CGPoint)point;
-{
-    CGFloat dx = self.bounds.size.width * SQUIGGLE_WIDTH / 2.0;
-    CGFloat dy = self.bounds.size.height * SQUIGGLE_HEIGHT / 2.0;
-    CGFloat dsqx = dx * SQUIGGLE_FACTOR;
-    CGFloat dsqy = dy * SQUIGGLE_FACTOR;
-    UIBezierPath *path = [[UIBezierPath alloc] init];
-    [path moveToPoint:CGPointMake(point.x - dx, point.y - dy)];
-    [path addQuadCurveToPoint:CGPointMake(point.x + dx, point.y - dy)
-                 controlPoint:CGPointMake(point.x - dsqx, point.y - dy - dsqy)];
-    [path addCurveToPoint:CGPointMake(point.x + dx, point.y + dy)
-            controlPoint1:CGPointMake(point.x + dx + dsqx, point.y - dy + dsqy)
-            controlPoint2:CGPointMake(point.x + dx - dsqx, point.y + dy - dsqy)];
-    [path addQuadCurveToPoint:CGPointMake(point.x - dx, point.y + dy)
-                 controlPoint:CGPointMake(point.x + dsqx, point.y + dy + dsqy)];
-    [path addCurveToPoint:CGPointMake(point.x - dx, point.y - dy)
-            controlPoint1:CGPointMake(point.x - dx - dsqx, point.y + dy - dsqy)
-            controlPoint2:CGPointMake(point.x - dx + dsqx, point.y - dy + dsqy)];
-    path.lineWidth = self.bounds.size.width * SYMBOL_LINE_WIDTH;
-    [self shadePath:path];
-    [path stroke];
-}
-
-#define DIAMOND_WIDTH 0.15
-#define DIAMOND_HEIGHT 0.4
-
-- (void)drawDiamondAtPoint:(CGPoint)point;
-{
-    CGFloat dx = self.bounds.size.width * DIAMOND_WIDTH / 2.0;
-    CGFloat dy = self.bounds.size.height * DIAMOND_HEIGHT / 2.0;
-    UIBezierPath *path = [[UIBezierPath alloc] init];
-    [path moveToPoint:CGPointMake(point.x, point.y - dy)];
-    [path addLineToPoint:CGPointMake(point.x + dx, point.y)];
-    [path addLineToPoint:CGPointMake(point.x, point.y + dy)];
-    [path addLineToPoint:CGPointMake(point.x - dx, point.y)];
-    [path closePath];
-    path.lineWidth = self.bounds.size.width * SYMBOL_LINE_WIDTH;
-    [self shadePath:path];
-    [path stroke];
-}
-
-#define STRIPES_OFFSET 0.06
-#define STRIPES_ANGLE 5
-
-- (void)shadePath:(UIBezierPath *)path
-{
-    if ([self.shading isEqualToString:@"solid"]) {
-        [[self color] setFill];
-        [path fill];
-    } else if ([self.shading isEqualToString:@"striped"]) {
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSaveGState(context);
-        [path addClip];
-        UIBezierPath *stripes = [[UIBezierPath alloc] init];
-        CGPoint start = self.bounds.origin;
-        CGPoint end = start;
-        CGFloat dy = self.bounds.size.height * STRIPES_OFFSET;
-        end.x += self.bounds.size.width;
-        start.y += dy;
-        for (int i = 0; i < 1 / STRIPES_OFFSET; i++) {
-            [stripes moveToPoint:start];
-            [stripes addLineToPoint:end];
-            start.y += dy;
-            end.y += dy;
-        }
-        stripes.lineWidth = self.bounds.size.width / 2 * SYMBOL_LINE_WIDTH;
-        [stripes stroke];
-        CGContextRestoreGState(UIGraphicsGetCurrentContext());
-    } else if ([self.shading isEqualToString:@"outlined"]) {
-        [[UIColor clearColor] setFill];
-    }
-}
-
-#pragma mark - Initialization
 
 - (void)setup
 {
-    self.backgroundColor = nil;
-    self.opaque = NO;
-    self.contentMode = UIViewContentModeRedraw;
+    // do initialization here
 }
 
 - (void)awakeFromNib
