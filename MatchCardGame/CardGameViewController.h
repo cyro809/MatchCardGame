@@ -26,4 +26,6 @@
 
 - (void)updateUI;
 
+- (IBAction)touchReDealButton:(UIButton *)sender;
+
 @end

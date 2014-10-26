@@ -10,7 +10,4 @@
 
 @interface TwoPlayersSetCardGameViewController : SetCardGameViewController
 
-@property (nonatomic, strong) NSArray *playersScores;
-@property (nonatomic) NSUInteger currentPlayer;
-
 @end

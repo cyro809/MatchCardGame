@@ -14,8 +14,7 @@
 
 @interface SetCardGameViewController ()
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (strong, nonatomic) SetCardGame *game;
+
 @end
 
 @implementation SetCardGameViewController

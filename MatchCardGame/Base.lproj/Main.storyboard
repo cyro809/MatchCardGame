@@ -373,10 +373,10 @@
             </objects>
             <point key="canvasLocation" x="305" y="41"/>
         </scene>
-        <!--Two Player Set Card Game View Controller - Set Card Game-->
+        <!--Two Players Set Card Game View Controller - Set Card Game-->
         <scene sceneID="EB0-H4-a81">
             <objects>
-                <viewController title="Set Card Game" id="GTS-ci-XR0" customClass="TwoPlayerSetCardGameViewController" sceneMemberID="viewController">
+                <viewController title="Set Card Game" id="GTS-ci-XR0" customClass="TwoPlayersSetCardGameViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WBg-ml-YeN"/>
                         <viewControllerLayoutGuide type="bottom" id="Jyx-nb-Bh8"/>
@@ -404,7 +404,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="touchReDealButton:" destination="GTS-ci-XR0" eventType="touchUpInside" id="jYd-pn-u9B"/>
+                                    <action selector="touchReDealButton:" destination="GTS-ci-XR0" eventType="touchUpInside" id="jNR-X8-Xup"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geJ-tq-xO9">

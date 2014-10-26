@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CardGameViewController.h"
+#import "SetCardGame.h"
 
 @interface SetCardGameViewController : CardGameViewController
 @property (nonatomic, strong) NSString *gameType;
@@ -15,4 +16,8 @@
 @property (nonatomic, strong) NSDate *gameFinishTime;
 @property (nonatomic) BOOL start;
 @property (nonatomic) NSUserDefaults *gameRecord;
+
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (strong, nonatomic) SetCardGame *game;
+
 @end

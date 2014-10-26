@@ -52,13 +52,14 @@
     self.numCardsChosen = 0;
     self.temp_score = 0;
     self.current_play_points = 0;
+    self.end_of_play = NO;
     return self;
 }
 
 - (void)threeCardMode:(Card *)card
 {
     NSString *currentPlay = @"";
-    
+    self.end_of_play = NO;
     if(!card.isMatched) {
         if(card.isChosen) {
             card.chosen = NO;
@@ -104,7 +105,7 @@
                 }
                 
                 [self.cardsChosen removeAllObjects];
-                
+                self.end_of_play = YES;
                 self.numCardsChosen = 0;
             }
             
