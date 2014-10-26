@@ -28,7 +28,7 @@
     self.playersScores = nil;
     self.currentPlayer = 0;
     [super touchReDealButton:sender];
-    self.scoreLabel.text = @"P1: 0  p2: 0";
+    self.scoreLabel.text = @"P1: 0  P2: 0";
 }
 
 - (void)calculateScores
@@ -62,7 +62,7 @@
 {
     [super viewDidLoad];
     self.gameType = @"SET GAME";
-    self.scoreLabel.text = @"P1: 0  p2: 0";
+    self.scoreLabel.text = @"P1: 0  P2: 0";
     // Do any additional setup after loading the view.
 }
 
