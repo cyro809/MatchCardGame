@@ -11,6 +11,8 @@
 
 @interface GameRecordsViewController()
 @property (weak, nonatomic) IBOutlet UITextView *resultsTextView;
+@property (nonatomic, strong) NSMutableArray *resultsDictionary;
+@property (nonatomic, strong) NSArray *sortedArray;
 
 @end
 
@@ -19,24 +21,28 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [GameRecords instance].allRecords = [userDefaults objectForKey:@"allRecords"];
+    self.resultsDictionary = [GameRecords instance].allRecords;
+    if (!self.resultsDictionary) {
+        self.resultsDictionary = [[NSMutableArray alloc] init];
+    }
+    self.sortedArray = self.resultsDictionary;
+    
     [self printResults];
 }
 
 - (void)printResults
 {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [GameRecords instance].allRecords = [userDefaults objectForKey:@"allRecords"];
-    NSMutableArray *resultsDictionary = [GameRecords instance].allRecords;
-    if (!resultsDictionary) {
-        resultsDictionary = [[NSMutableArray alloc] init];
-    }
+    
     self.resultsTextView.text = @"Score:   Duration:   Game Type:  \n";
-    for(NSDictionary *dictionary in resultsDictionary)
+    for(NSDictionary *dictionary in self.sortedArray)
     {
         double duration = [[dictionary objectForKey:@"gameDuration"] doubleValue];
         int score = [[dictionary objectForKey:@"gameScore"] intValue];
@@ -46,6 +52,18 @@
                                 score, duration, gameType];
     }
         
+}
+
+
+- (IBAction)sortByDuration:(UIButton *)sender {
+    NSSortDescriptor *durationDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gameDuration" ascending:YES];
+    NSMutableArray *sortedDurationArray = [NSMutableArray arrayWithObject:durationDescriptor];
+    self.sortedArray = [self.resultsDictionary sortedArrayUsingDescriptors:sortedDurationArray];
+    [self printResults];
+}
+
+
+- (IBAction)sortByScore:(UIButton *)sender {
 }
 
 @end
