@@ -64,6 +64,10 @@
 
 
 - (IBAction)sortByScore:(UIButton *)sender {
+    NSSortDescriptor *scoreDescriptor = [[NSSortDescriptor alloc] initWithKey:@"gameScore" ascending:NO];
+    NSMutableArray *sortedScoreArray = [NSMutableArray arrayWithObject:scoreDescriptor];
+    self.sortedArray = [self.resultsDictionary sortedArrayUsingDescriptors:sortedScoreArray];
+    [self printResults];
 }
 
 @end

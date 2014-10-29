@@ -11,7 +11,6 @@
 #import "GameSettings.h"
 
 @interface CardMatchingGame()
-@property (nonatomic, readwrite) NSUInteger score;
 @property (nonatomic, strong) NSMutableArray *cards; //of cards
 @property (nonatomic, strong) Deck *deck;
 @property (nonatomic, strong) GameSettings *gameSettings;

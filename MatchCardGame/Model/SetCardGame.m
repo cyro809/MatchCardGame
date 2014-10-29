@@ -11,7 +11,7 @@
 #import "SetCardDeck.h"
 #import "GameSettings.h"
 @interface SetCardGame()
-@property (nonatomic, readwrite) NSUInteger score;
+@property (nonatomic) NSUInteger score;
 @property (nonatomic, strong) Deck *deck;
 @end
 
@@ -73,7 +73,6 @@
         else {
             card.chosen = YES;
             [self.cardsChosen addObject:card];
-            // match against other chosen cards
             self.score--;
             
             

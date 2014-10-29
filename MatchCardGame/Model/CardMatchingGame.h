@@ -21,7 +21,7 @@
 - (void) printPlay:(Card *)card current:(NSString *)currentPlay;
 - (void) drawNewCard;
 - (BOOL) isDeckEmpty;
-@property (nonatomic, readonly) NSUInteger score;
+@property (nonatomic) NSUInteger score;
 
 @property (nonatomic) int numCards;
 @property (nonatomic) int numCardsChosen;
