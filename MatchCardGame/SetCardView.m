@@ -15,8 +15,8 @@
 
 @implementation SetCardView
 
-#define SHAPE_WIDTH_RATIO 0.7
-#define SHAPE_HEIGHT_RATIO 0.2
+static const double SHAPE_WIDTH_RATIO = 0.7;
+static const double SHAPE_HEIGHT_RATIO = 0.2;
 
 -(float)shapeHeight
 {
@@ -100,7 +100,7 @@
     [self colorAndDraw:path];
 }
 
-#define NUMBER_LINES 10
+static const double NUMBER_LINES = 10;
 
 -(void)colorAndDraw:(UIBezierPath*)path
 {
@@ -109,7 +109,7 @@
         [path fill];
     }
     
-    [path addClip]; // allow us to draw stripes without having to care about bounds
+    [path addClip];
     
     [self.color setStroke];
     [path stroke];
@@ -134,11 +134,11 @@
     UIRectFill(self.bounds);
     
     if (self.chosen) {
-        [[UIColor blueColor] setStroke];
-        roundedRect.lineWidth *= 2.0;
+        [[UIColor redColor] setStroke];
+        roundedRect.lineWidth *= 3.0;
     } else {
         [[UIColor colorWithWhite:0.8 alpha:1.0] setStroke];
-        roundedRect.lineWidth /= 2.0;
+        roundedRect.lineWidth /= 3.0;
     }
     [roundedRect stroke];
 }
@@ -157,7 +157,9 @@
 
 - (void)setup
 {
-    // do initialization here
+    self.backgroundColor = nil;
+    self.opaque = NO;
+    self.contentMode = UIViewContentModeRedraw;
 }
 
 - (void)awakeFromNib

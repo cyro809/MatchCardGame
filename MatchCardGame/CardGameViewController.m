@@ -131,6 +131,7 @@ static const double FRAMEROUNDINGERROR = 0.01;
 }
 
 
+// Atualização do grid com as cartas. Confere se houve alteração de tamanho em alguma subview na hora de rearranjar as cartas.
 
 - (void)updateGrid
 {
@@ -189,7 +190,10 @@ static const double FRAMEROUNDINGERROR = 0.01;
             cardView = self.cardViews[viewIndex];
             if (!card.matched) {
                 [self updateView:cardView forCard:card];
-            } else {
+            }
+            //remove as cartas apenas se for do Set Card Game
+            
+            else {
                 if ([self.gameType isEqualToString:@"SET GAME"]) {
                     [self.cardViews removeObject:cardView];
                     [UIView animateWithDuration:1.0
@@ -214,7 +218,7 @@ static const double FRAMEROUNDINGERROR = 0.01;
     self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
-
+//confere se ao rearrumar o grid e as cartas se houve mudança no tamanho
 
 - (BOOL)frame:(CGRect)frame1 equalToFrame:(CGRect)frame2
 {
