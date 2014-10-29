@@ -28,7 +28,11 @@ static const double SHAPE_HEIGHT_RATIO = 0.2;
     return self.bounds.size.width * SHAPE_WIDTH_RATIO;
 }
 
-
+- (void)setChosen:(BOOL)chosen
+{
+    _chosen = chosen;
+    [self setNeedsDisplay];
+}
 
 - (void)drawRect:(CGRect)rect
 {
@@ -127,18 +131,21 @@ static const double NUMBER_LINES = 10;
 -(void)drawCardBackground
 {
     UIBezierPath *roundedRect = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                                           cornerRadius:self.bounds.size.width * 0.1];
+                                                           cornerRadius:self.bounds.size.width * 0.2];
     [roundedRect addClip];
     
     [[UIColor whiteColor] setFill];
     UIRectFill(self.bounds);
     
     if (self.chosen) {
+        NSLog(@"CHOSEN!");
         [[UIColor redColor] setStroke];
-        roundedRect.lineWidth *= 3.0;
+        roundedRect.lineWidth *= 2.0;
+        self.alpha = 0.7f;
     } else {
         [[UIColor colorWithWhite:0.8 alpha:1.0] setStroke];
-        roundedRect.lineWidth /= 3.0;
+        roundedRect.lineWidth /= 2.0;
+        self.alpha = 1.0;
     }
     [roundedRect stroke];
 }
